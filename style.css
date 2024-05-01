@@ -8,7 +8,8 @@
 body {
 	margin: 0px;
 	color: var(--fontColor1);
-	font-family: Lexend, Georgia, Times, serif;
+	font-family: Oswald, Georgia, Times, serif;
+	background-color: rgb(219, 231, 255);
 }
 body > * {
 	padding: 10px;
@@ -18,7 +19,7 @@ body > * {
 }
 a {
 	text-decoration: none;
-	font-family: Comfortaa, 'Trebuchet MS', 'Lucida Sans Unicode', Arial, sans-serif;
+	font-family: Comfortaa, 'Trebuchet MS', Arial, sans-serif;
 }
 button {
 	color: var(--fontColor2);
@@ -28,11 +29,16 @@ button {
 	border-radius: 10px;
 	padding: 10px;
 }
+button:disabled {
+	background-color: gray;
+	text-decoration: line-through;
+}
+
 header {
 	background-color: var(--customColor2);
 	font-size: xx-large;
 	color: var(--fontColor2);
-	font-family: Comfortaa, 'Trebuchet MS', 'Lucida Sans Unicode', Arial, sans-serif;
+	font-family: Comfortaa, 'Trebuchet MS', Arial, sans-serif;
 }
 header a {
 	color: var(--fontColor2);
@@ -51,6 +57,10 @@ header > div {
 	flex-grow: 1;
 }
 
+#listaPojec {
+	font-size: large;
+}
+
 @media screen and (min-width: 800px) {
 	.showOnPC {
 		display: inline;
@@ -62,6 +72,19 @@ header > div {
 		font-size: xx-large;
 		float: right;
 	}
+}
+
+.rodz0 {
+	color: blue;
+}
+.rodz1 {
+	color: red;
+}
+.rodz2 {
+	color: green;
+}
+.rodz3 {
+	color: orange;
 }
 
 /* Switch - to change */

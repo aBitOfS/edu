@@ -9,27 +9,27 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lexend">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+		<script src="index.js"></script>
 	</head>
-	<body>
+	<body onload="startIndex()">
 		<header>
 			<a href="https://abitofs.github.io"><img src="logoD.svg" alt="abitofs" height="50px"/><span class="showOnPC"> HOME </span></a>
 			<a href=""><img src="logoEdu.svg" alt="edu" height="50px" width="52px"/> EDU</a>
 			<div>geografia
 			<label class="switch">
-				<input type="checkbox">
+				<input type="checkbox" id="wyborZestawu" onclick="index.ZmianaZestawu()">
 				<span class="slider round"></span>
 			</label>
 			niemiecki</div>
 		</header>
 		<main>
 			<div class="buttonsInRow">
-				<button>Zacznij naukę!</button>
-				<button>Fiszki</button>
-				<button>Graj!</button>
+				<button onclick="index.ZmianaZestawu()" disabled="disabled">Zacznij naukę!</button>
+				<button disabled="disabled">Fiszki</button>
+				<button disabled="disabled">Graj!</button>
 			</div>
-			<div id="listaPojec">
-				<h2>Lista Pojęć:</h2>
-			</div>
+			<h2 id="listaPojecHeader">Lista Pojęć:</h2>
+			<div id="listaPojec"></div>
 		</main>
 	</body>
 </html>
