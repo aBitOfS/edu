@@ -25,6 +25,21 @@ class Index {
 	}
 }
 
+class Fiszki {
+	zestaw: Zestaw;
+	wyborZestawu: HTMLSelectElement;
+	constructor() {
+		this.wyborZestawu = document.getElementById("wyborZestawu") as HTMLSelectElement ?? document.createElement("select");
+		this.ZmianaZestawu();
+	}
+	ZmianaZestawu() {
+		if (this.wyborZestawu.value === "niem")
+			this.zestaw = new NiemieckiUbrania();
+		else if (this.wyborZestawu.value === "geo")
+			this.zestaw = new ParkiNarodowe();
+	}
+}
+
 interface Pytanie {
 	war1: string | string[];
 	war2: string | string[];
@@ -116,4 +131,8 @@ class ParkiNarodowe extends Zestaw {
 var index;
 function startIndex() {
 	index = new Index();
+}
+var fiszki;
+function startFiszki() {
+	fiszki = new Fiszki();
 }

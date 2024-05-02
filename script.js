@@ -38,6 +38,20 @@ var Index = /** @class */ (function () {
     };
     return Index;
 }());
+var Fiszki = /** @class */ (function () {
+    function Fiszki() {
+        var _a;
+        this.wyborZestawu = (_a = document.getElementById("wyborZestawu")) !== null && _a !== void 0 ? _a : document.createElement("select");
+        this.ZmianaZestawu();
+    }
+    Fiszki.prototype.ZmianaZestawu = function () {
+        if (this.wyborZestawu.value === "niem")
+            this.zestaw = new NiemieckiUbrania();
+        else if (this.wyborZestawu.value === "geo")
+            this.zestaw = new ParkiNarodowe();
+    };
+    return Fiszki;
+}());
 var Zestaw = /** @class */ (function () {
     function Zestaw() {
     }
@@ -136,4 +150,8 @@ var ParkiNarodowe = /** @class */ (function (_super) {
 var index;
 function startIndex() {
     index = new Index();
+}
+var fiszki;
+function startFiszki() {
+    fiszki = new Fiszki();
 }

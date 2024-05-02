@@ -10,11 +10,16 @@
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lexend">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
 		<script src="script.js"></script>
+		<script>
+			/*var url_string = window.location;
+			var url = new URL(url_string);
+			var zestaw = url.searchParams.get("zestaw");*/
+		</script>
 	</head>
-	<body onload="startIndex()">
+	<body onload="startFiszki()">
 		<header>
 			<a href="https://abitofs.github.io"><img src="logoD.svg" alt="abitofs" height="50px"/> HOME </a>
-			<a href=""><img src="logoEdu.svg" alt="edu" height="50px"/> EDU</a>
+			<a href="index.html"><img src="logoEdu.svg" alt="edu" height="50px"/> EDU</a>
 			<label>Przedmiot
 				<select id="wyborZestawu" name="wyborZestawu" onclick="index.ZmianaZestawu()">
 					<option value="niem">Niemiecki</option>
@@ -24,20 +29,19 @@
 			</label>
 		</header>
 		<main>
-			<div class="buttonsInRow">
-				<button disabled="disabled">Zacznij naukę!</button>
-				<a href="fiszki.html"><button>Fiszki</button></a>
-				<button disabled="disabled">Graj!</button>
+			<button>Back</button>
+			<div id="fiszkiPoj">
+				<div id="fiszka">
+					<div>[Zawartość]</div>
+				</div>
 			</div>
-			<h2 id="listaPojecHeader">Lista Pojęć: 
-			<label>Sortuj
-				<select id="wyborSortowania" name="wyborSortowania" onclick="index.ZmianaZestawu()">
-					<option value="rodz">Według rodzajnika</option>
-					<option value="org">Orginalna kolejność</option>
-					<option value="alf">Alfabetycznie</option>
-				</select>
-			</label></h2>
-			<div id="listaPojec"></div>
+			<div class="center"><button id="odwroc">odwróć</button></div>
+			<div class="buttonsInRow center">
+				<button>Znam!</button>
+				<button>Tak plus minus</button>
+				<button>Lepiej powtórzę</button>
+				<button>W ogóle nie łapię</button>
+			</div>
 		</main>
 	</body>
 </html>
