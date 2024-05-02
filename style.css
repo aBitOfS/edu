@@ -21,6 +21,11 @@ a {
 	text-decoration: none;
 	font-family: Comfortaa, 'Trebuchet MS', Arial, sans-serif;
 }
+select {
+	font-size: smaller;
+	border-radius: 5px;
+}
+
 button {
 	color: var(--fontColor2);
 	background-color: var(--customColor2);
@@ -40,10 +45,14 @@ header {
 	color: var(--fontColor2);
 	font-family: Comfortaa, 'Trebuchet MS', Arial, sans-serif;
 }
+header img {
+	margin: -5px;
+}
 header a {
 	color: var(--fontColor2);
 }
-header > div {
+header > label {
+	display: block;
 	font-size: x-large;
 	text-align: center;
 	padding: 10px
@@ -59,6 +68,12 @@ header > div {
 
 #listaPojec {
 	font-size: large;
+	margin: -10px 10px;
+	/*display: flex;
+	flex-wrap: wrap;
+}
+#listaPojec > div {
+	min-width: 200px;*/
 }
 
 @media screen and (min-width: 800px) {
@@ -68,23 +83,27 @@ header > div {
 	.buttonsInRow > * {
 		flex-grow: 0;
 	}
-	header > div {
+	header > label {
 		font-size: xx-large;
 		float: right;
 	}
 }
 
-.rodz0 {
+.katder {
 	color: blue;
+	grid-column: 1;
 }
-.rodz1 {
+.katdie {
 	color: red;
+	grid-column: 2;
 }
-.rodz2 {
+.katdas {
 	color: green;
+	grid-column: 3;
 }
-.rodz3 {
-	color: orange;
+
+#listaPojecHeader > label {
+	float: right;
 }
 
 /* Switch - to change */
