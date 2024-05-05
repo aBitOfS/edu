@@ -22,6 +22,7 @@ var Index = /** @class */ (function () {
         this.ZmianaZestawu();
     }
     Index.prototype.ZmianaZestawu = function () {
+        localStorage.setItem("zestaw", this.wyborZestawu.value);
         if (this.wyborZestawu.value === "niem")
             this.zestaw = new NiemieckiUbrania();
         else if (this.wyborZestawu.value === "geo")
@@ -39,16 +40,19 @@ var Index = /** @class */ (function () {
     return Index;
 }());
 var Fiszki = /** @class */ (function () {
-    function Fiszki() {
-        var _a;
-        this.wyborZestawu = (_a = document.getElementById("wyborZestawu")) !== null && _a !== void 0 ? _a : document.createElement("select");
-        this.ZmianaZestawu();
-    }
-    Fiszki.prototype.ZmianaZestawu = function () {
-        if (this.wyborZestawu.value === "niem")
-            this.zestaw = new NiemieckiUbrania();
-        else if (this.wyborZestawu.value === "geo")
+    function Fiszki(zestaw) {
+        if (zestaw === "geo")
             this.zestaw = new ParkiNarodowe();
+        else
+            (zestaw === "niem");
+        this.zestaw = new NiemieckiUbrania();
+        this.pojecia = this.zestaw.pojecia;
+    }
+    Fiszki.prototype.nastepnaFiszka = function () {
+        var next = this.pojecia.shift();
+        if (!next)
+            return;
+        this.pojecie = next;
     };
     return Fiszki;
 }());
@@ -150,8 +154,4 @@ var ParkiNarodowe = /** @class */ (function (_super) {
 var index;
 function startIndex() {
     index = new Index();
-}
-var fiszki;
-function startFiszki() {
-    fiszki = new Fiszki();
 }

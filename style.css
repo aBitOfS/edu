@@ -4,7 +4,7 @@
 	--fontColor2: white;
 	--customColor1: rgb(20, 63, 112);
 	--customColor2: rgb(0, 43, 92);
-	--highlighColor: rgb(255, 145, 0);
+	--highlighColor: rgb(255, 214, 161);
 }
 
 /* Global */
@@ -74,6 +74,7 @@ header > label {
 }
 .buttonsInRow > a > button:hover {
 	background-color: var(--customColor1);
+	border-color: var(--highlighColor);
 	color: var(--highlighColor)
 }
 
@@ -116,12 +117,20 @@ header > label {
 	font-size: xx-large;
 	margin: 5px 0px;
 }
+.drugaStrona {
+	background-color: var(--customColor1) !important;
+}
 .center {
 	display: flex;
 	justify-content: center;
 }
 #odwroc {
 	margin: -80px 0px 20px 0px;
+}
+#zaczOdDrContainer {
+	font-size: larger;
+	float: right;
+	padding: 10px 0px;
 }
 
 

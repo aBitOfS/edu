@@ -10,6 +10,7 @@ class Index {
 		this.ZmianaZestawu();
 	}
 	ZmianaZestawu() {
+		localStorage.setItem("zestaw",this.wyborZestawu.value);
 		if (this.wyborZestawu.value === "niem")
 			this.zestaw = new NiemieckiUbrania();
 		else if (this.wyborZestawu.value === "geo")
@@ -27,17 +28,21 @@ class Index {
 
 class Fiszki {
 	zestaw: Zestaw;
-	wyborZestawu: HTMLSelectElement;
-	constructor() {
-		this.wyborZestawu = document.getElementById("wyborZestawu") as HTMLSelectElement ?? document.createElement("select");
-		this.ZmianaZestawu();
-	}
-	ZmianaZestawu() {
-		if (this.wyborZestawu.value === "niem")
-			this.zestaw = new NiemieckiUbrania();
-		else if (this.wyborZestawu.value === "geo")
+	pojecia: Pytanie[];
+	pojecie: Pytanie;
+	constructor(zestaw: string) {
+		if (zestaw === "geo")
 			this.zestaw = new ParkiNarodowe();
+		else (zestaw === "niem")
+			this.zestaw = new NiemieckiUbrania();
+		this.pojecia = this.zestaw.pojecia;
 	}
+	nastepnaFiszka() {
+		let next = this.pojecia.shift();
+		if (!next) return;
+		this.pojecie = next;
+	}
+
 }
 
 interface Pytanie {
@@ -131,8 +136,4 @@ class ParkiNarodowe extends Zestaw {
 var index;
 function startIndex() {
 	index = new Index();
-}
-var fiszki;
-function startFiszki() {
-	fiszki = new Fiszki();
 }
