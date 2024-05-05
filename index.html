@@ -10,13 +10,14 @@
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lexend">
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
 		<script src="script.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	</head>
 	<body onload="startIndex()">
 		<header>
 			<a href="https://abitofs.github.io"><img src="media/logoD.svg" alt="abitofs" height="50px"/> HOME </a>
 			<a href="index.html"><img src="media/logoEdu.svg" alt="edu" height="50px"/> EDU</a>
 			<label>Przedmiot
-				<select id="wyborZestawu" name="wyborZestawu" onclick="index.ZmianaZestawu()">
+				<select id="wyborZestawu" name="wyborZestawu" onchange="index.ZmianaZestawu()">
 					<option value="niem">Niemiecki</option>
 					<option value="geo">Geografia</option>
 					<option value="ang">Angielski</option>
@@ -32,13 +33,14 @@
 			</div>
 			<h2 id="listaPojecHeader">Lista Pojęć: 
 			<label>Sortuj
-				<select id="wyborSortowania" name="wyborSortowania" onclick="index.ZmianaZestawu()">
+				<select id="wyborSortowania" name="wyborSortowania" onchange="index.ZmianaZestawu()">
 					<option value="rodz">Według rodzajnika</option>
 					<option value="org">Orginalna kolejność</option>
 					<option value="alf">Alfabetycznie</option>
 				</select>
 			</label></h2>
 			<div id="listaPojec"></div>
+			<button id="eks" onclick="alert(JSON.stringify(index.zestaw))">Eksportuj (.json)</button>
 		</main>
 	</body>
 </html>

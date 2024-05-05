@@ -27,6 +27,7 @@ var Index = /** @class */ (function () {
             this.zestaw = new NiemieckiUbrania();
         else if (this.wyborZestawu.value === "geo")
             this.zestaw = new ParkiNarodowe();
+        localStorage.setItem(this.wyborZestawu.value, JSON.stringify(this.zestaw));
         this.listaPojec.innerHTML = "";
         var s = this.zestaw.Sortuj(this.wyborSortowania.value);
         for (var _i = 0, s_1 = s; _i < s_1.length; _i++) {
@@ -38,23 +39,6 @@ var Index = /** @class */ (function () {
         }
     };
     return Index;
-}());
-var Fiszki = /** @class */ (function () {
-    function Fiszki(zestaw) {
-        if (zestaw === "geo")
-            this.zestaw = new ParkiNarodowe();
-        else
-            (zestaw === "niem");
-        this.zestaw = new NiemieckiUbrania();
-        this.pojecia = this.zestaw.pojecia;
-    }
-    Fiszki.prototype.nastepnaFiszka = function () {
-        var next = this.pojecia.shift();
-        if (!next)
-            return;
-        this.pojecie = next;
-    };
-    return Fiszki;
 }());
 var Zestaw = /** @class */ (function () {
     function Zestaw() {
@@ -85,6 +69,20 @@ var Zestaw = /** @class */ (function () {
                 else if (a.war1 > b.war1)
                     return 1;
                 else if (b.war1 > a.war1)
+                    return -1;
+                else
+                    return 0;
+            });
+        }
+        else if (typ === "time") {
+            var repetitionLimit_1 = Date.now();
+            sP.sort(function (a, b) {
+                var _a, _b;
+                var at = (_a = a.time) !== null && _a !== void 0 ? _a : repetitionLimit_1;
+                var bt = (_b = b.time) !== null && _b !== void 0 ? _b : repetitionLimit_1;
+                if (at > bt)
+                    return 1;
+                else if (bt > at)
                     return -1;
                 else
                     return 0;
@@ -128,10 +126,6 @@ var NiemieckiUbrania = /** @class */ (function (_super) {
             new Slow("",""), new Slow("",""),new Slow("", ""),new Slow("","")*/
         ];
         _this.slownik = new URL("https://www.diki.pl/slownik-niemieckiego");
-        _this.rodzajniki = [[0, "Anzug - garnitur"], [1, "Armbanduhr - zegarek"], [1, "Bluse - bluzka"],
-            [1, "Gürtel - pasek"], [1, "Haarbürste - szczotka do włosów"], [1, "Halskette - łańcuszek"], [1, "Handcreme - krem do rąk"],
-            [1, "Handyhülle - osłona na telefon"], [2, "Armband - branzoletka"], [2, "Deodorant - dezodorant"],
-            [2, 'Gürteltasche - Torba "nerka"'], [2, "Halstuch - apaszka"], [2, "Hemd - koszula"], [4, "Sakko - marynarka"]];
         return _this;
     }
     return NiemieckiUbrania;

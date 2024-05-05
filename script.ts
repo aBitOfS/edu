@@ -15,6 +15,7 @@ class Index {
 			this.zestaw = new NiemieckiUbrania();
 		else if (this.wyborZestawu.value === "geo")
 			this.zestaw = new ParkiNarodowe();
+		localStorage.setItem(this.wyborZestawu.value,JSON.stringify(this.zestaw));
 		this.listaPojec.innerHTML = "";
 		let s = this.zestaw.Sortuj(this.wyborSortowania.value);
 		for (let el of s) {
@@ -26,29 +27,11 @@ class Index {
 	}
 }
 
-class Fiszki {
-	zestaw: Zestaw;
-	pojecia: Pytanie[];
-	pojecie: Pytanie;
-	constructor(zestaw: string) {
-		if (zestaw === "geo")
-			this.zestaw = new ParkiNarodowe();
-		else (zestaw === "niem")
-			this.zestaw = new NiemieckiUbrania();
-		this.pojecia = this.zestaw.pojecia;
-	}
-	nastepnaFiszka() {
-		let next = this.pojecia.shift();
-		if (!next) return;
-		this.pojecie = next;
-	}
-
-}
-
 interface Pytanie {
 	war1: string | string[];
 	war2: string | string[];
 	kat?: string;
+	time?: Date; // Czas następnego powtórzenia
 }
 
 class Zestaw {
@@ -58,7 +41,7 @@ class Zestaw {
 	slownik?: URL;
 	//type?: "niemiecki" | "mapa";
 	rodzajniki?: [number, string][]; // 0 - der, 1 - die, 2 - das, 3 - l.mn.
-	Sortuj(typ: string) { // "alf" | "rodz" | "org"
+	Sortuj(typ: string) { // "alf" | "rodz" | "org" | "time"
 		let sP = this.pojecia.slice();
 		if (typ === "alf") {
 			sP.sort((a:Pytanie,b:Pytanie) => {
@@ -78,6 +61,16 @@ class Zestaw {
 				else if (b.kat && (!a.kat || b.kat > a.kat)) return -1;
 				else if (a.war1 > b.war1) return 1;
 				else if (b.war1 > a.war1) return -1;
+				else return 0;
+			})
+		}
+		else if (typ === "time") {
+			let repetitionLimit = Date.now();
+			sP.sort((a:Pytanie,b:Pytanie) => {
+				let at = a.time ?? repetitionLimit;
+				let bt = b.time ?? repetitionLimit;
+				if (at > bt) return 1;
+				else if (bt > at) return -1;
 				else return 0;
 			})
 		}
@@ -115,10 +108,6 @@ class NiemieckiUbrania extends Zestaw {
 		new Slow("der Turnbeutel","worek na strój gimnastyczny"), new Slow("der USB-Stick","pendrive"),new Slow("die Weste", "kamizelka")/*,
 		new Slow("",""), new Slow("",""),new Slow("", ""),new Slow("","")*/];
 	slownik = new URL("https://www.diki.pl/slownik-niemieckiego");
-	rodzajniki: [number, string][] = [[0,"Anzug - garnitur"],[1,"Armbanduhr - zegarek"],[1,"Bluse - bluzka"],
-		[1,"Gürtel - pasek"],[1,"Haarbürste - szczotka do włosów"],[1,"Halskette - łańcuszek"], [1,"Handcreme - krem do rąk"],
-		[1,"Handyhülle - osłona na telefon"],[2,"Armband - branzoletka"],[2,"Deodorant - dezodorant"],
-		[2,'Gürteltasche - Torba "nerka"'],[2,"Halstuch - apaszka"],[2,"Hemd - koszula"],[4,"Sakko - marynarka"]]
 }
 
 class MapP implements Pytanie {

@@ -84,7 +84,7 @@ header > label {
 }
 #listaPojec {
 	font-size: large;
-	margin: -10px 10px;
+	margin: -10px 10px 10px 10px;
 	/*display: flex;
 	flex-wrap: wrap;
 }
@@ -132,6 +132,10 @@ header > label {
 	float: right;
 	padding: 10px 0px;
 }
+#znam { background-color: darkgreen; }
+#prawie { background-color: green; }
+#powtorze { background-color: orange; }
+#nieznam { background-color: red;}
 
 
 /* Responsywność */

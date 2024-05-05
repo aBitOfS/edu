@@ -12,23 +12,14 @@
 		<script src="script.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<script>
-			/*var url_string = window.location;
-			var url = new URL(url_string);
-			var zestaw = url.searchParams.get("zestaw");*/
-			var pojecia, pojecie, strona, poczatkowa = true;
+			var pojecia, pojecie, zestaw, strona, poczatkowa = true;
 			function nastepna() {
 				pojecie = pojecia.shift();
 				strona = $(zaczOdDr).prop("checked");
 				$("#fiszka > div").text(pojecie[(strona ? "war1" : "war2")])
 				$("#fiszka").removeClass("drugaStrona");
 			}
-
-			$(document).ready(function() {
-				let nazwaZestawu = localStorage.getItem("zestaw") ?? "niem";
-				if (nazwaZestawu === "geo")
-					pojecia = new ParkiNarodowe().pojecia;
-				else
-					pojecia = new NiemieckiUbrania().pojecia;
+			function start() {
 				nastepna()
 
 				$("#odwroc").click(function() {
@@ -36,9 +27,22 @@
 					$("#fiszka > div").text(pojecie[(strona ? "war1" : "war2")])
 					$("#fiszka").toggleClass("drugaStrona");
 				})
+
 				$("div.buttonsInRow.center > button").click(function() {
 					nastepna();
 				})
+			}
+
+			$(document).ready(function() {
+				let nazwaZestawu = localStorage.getItem("zestaw") ?? "niem";
+				zestaw = localStorage.getItem(nazwaZestawu);
+				if (zestaw && zestaw != 'undefined') {
+					zestaw = JSON.parse(zestaw);
+					pojecia = zestaw.pojecia;
+					start();
+				}
+				else
+					alert("BŁĄD: brak szukanego zestawu")
 			})
 		</script>
 	</head>
@@ -48,19 +52,19 @@
 			<a href="index.html"><img src="media/logoEdu.svg" alt="edu" height="50px"/> EDU</a>
 		</header>
 		<main>
-			<button>Back</button>
+			<a href="index.html"><button>Back</button></a>
 			<label id="zaczOdDrContainer">Zacznij od drugiej strony<input id="zaczOdDr" type="checkbox"/></label>
 			<div id="fiszkiPoj">
 				<div id="fiszka">
-					<div>aa</div>
+					<div>brak pojęć</div>
 				</div>
 			</div>
 			<div class="center"><button id="odwroc">odwróć</button></div>
 			<div class="buttonsInRow center">
 				<button id="znam">Znam!</button>
 				<button id="prawie">Już prawie</button>
-				<button>Lepiej powtórzę</button>
-				<button>W ogóle nie łapię</button>
+				<button id="powtorze">Lepiej powtórzę</button>
+				<button id="nieznam">W ogóle nie łapię</button>
 			</div>
 		</main>
 	</body>
