@@ -25,6 +25,22 @@ class Index {
 				this.listaPojec.innerHTML += `<div>${el.war1} - ${el.war2}</div>`;
 		}
 	}
+	/*wczytajZestawy() {
+		let zestawyStr = localStorage.getItem("zestawy");
+		if (zestawyStr && zestawyStr != "undefined") { // Zapisane zestawy
+			let zestawy = JSON.parse(zestawyStr);
+			this.zapiszZestawy(zestawy);
+		}
+		else {
+			$.getJSON("zestawy.json",(zestawy) => {
+				this.zapiszZestawy(zestawy);
+			})
+		}
+	}
+	zapiszZestawy(zestawy) {
+		localStorage.setItem("zestawy",JSON.stringify(zestawy));
+		// Ustawienie przedmiotów i zestawów
+	}*/
 }
 
 interface Pytanie {

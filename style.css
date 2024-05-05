@@ -64,7 +64,7 @@ header > label {
 .buttonsInRow {
 	display: flex;
 	width: 100%;
-	gap: 10px;
+	gap: 5px;
 }
 .buttonsInRow * {
 	flex-grow: 1;
@@ -116,6 +116,10 @@ header > label {
 	align-items: center;
 	font-size: xx-large;
 	margin: 5px 0px;
+}
+#tytul {
+	display: inline;
+	margin: 10px;
 }
 .drugaStrona {
 	background-color: var(--customColor1) !important;
