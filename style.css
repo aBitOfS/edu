@@ -33,9 +33,15 @@ button {
 	border-radius: 10px;
 	padding: 10px;
 }
+button:hover {
+	background-color: var(--customColor1);
+	border-color: var(--highlighColor);
+	color: var(--highlighColor);
+}
 button:disabled {
 	background-color: gray;
-	text-decoration: line-through;
+	color: var(--fontColor2);
+	border: 2px var(--fontColor2) solid;
 }
 select {
 	font-size: smaller;
@@ -54,6 +60,9 @@ header img {
 header a {
 	color: var(--fontColor2);
 }
+header a:hover {
+	color: var(--highlighColor);
+}
 header > label {
 	display: block;
 	font-size: x-large;
@@ -65,17 +74,13 @@ header > label {
 	display: flex;
 	width: 100%;
 	gap: 5px;
+	flex-wrap: wrap;
 }
 .buttonsInRow * {
 	flex-grow: 1;
 }
 .buttonsInRow > a > button {
 	width: 100%;
-}
-.buttonsInRow > a > button:hover {
-	background-color: var(--customColor1);
-	border-color: var(--highlighColor);
-	color: var(--highlighColor)
 }
 
 /* index */

@@ -26,9 +26,9 @@
 		</header>
 		<main>
 			<div class="buttonsInRow">
-				<button disabled="disabled">Zacznij naukę!</button>
+				<a><button disabled="disabled">Zacznij naukę!</button></a>
 				<a href="fiszki.html"><button>Fiszki</button></a>
-				<button disabled="disabled">Graj!</button>
+				<a><button disabled="disabled">Graj!</button></a>
 				<a href="media/Odmiana niemiecki.png"><button>Odmiana</button></a>
 			</div>
 			<h2 id="listaPojecHeader">Lista Pojęć: 
@@ -40,7 +40,11 @@
 				</select>
 			</label></h2>
 			<div id="listaPojec"></div>
-			<button id="eks" onclick="alert(JSON.stringify(index.zestaw))">Eksportuj (.json)</button>
+			<div class="buttonsInRow">
+				<button id="eks" onclick="alert(JSON.stringify(index.zestaw))">Eksportuj (.json)</button>
+				<button id="zer" onclick="index.zerujPostep()">Zeruj postęp</button>
+				<button disabled="disabled">Dodaj pojęcie</button>
+			</div>
 		</main>
 	</body>
 </html>

@@ -12,21 +12,40 @@
 		<script src="script.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<script>
-			var pojecia, pojecie, zestaw, strona, poczatkowa = true;
+			var pojecia, pojecie, nazwaZestawu, zestaw, strona, poczatkowa = true;
+
+			function czasNaTekst(czas) {
+				czas = Math.floor(czas/60000); // minuty
+				if (czas == 1)
+					return "minutę";
+				if (czas < 60)
+					return `${czas} ${czas < 5 ? "minuty" : "minut"}`;
+				else if (czas < 120)
+					return "godzinę";
+				else if (czas < 60*24) {
+					czas = Math.floor(czas/6)/10;
+					return `${czas} ${czas < 5 ? "godziny" : "godzin"}`;
+				}
+				else {
+					czas = Math.floor(czas/60/24);
+					return `${czas} ${czas == 1 ? "dzień" : "dni"}`;
+				}
+			}
 
 			function nastepna() {
 				pojecie = pojecia.shift();
 				strona = $(zaczOdDr).prop("checked");
 
-				if (pojecie.time && pojecie.time > Date.now()+60000)
-					alert(`Dobra robota! Ukończyłeś na teraz, wróć za ${(pojecie.time - Date.now())/60000} minut`)
+				if (pojecie.time && pojecie.time > Date.now()+60000) {
+					alert("Dobra robota! Ukończyłeś na teraz wróć za "+czasNaTekst(pojecie.time-60000));
+				}
 
-				$("#fiszka > div").text(pojecie[(strona ? "war1" : "war2")])
+				$("#fiszka > span").text(pojecie[(strona ? "war1" : "war2")])
 				$("#fiszka").removeClass("drugaStrona");
 			}
 			function odloz(ileMinut) {
 				pojecie.time = Date.now() + 60000 * ileMinut;
-				console.log("powtórzę za "+ileMinut+" minut");
+				console.log("powtórzę za "+czasNaTekst(60000 * ileMinut));
 				pojecia.push(pojecie)
 				nastepna();
 			}
@@ -38,33 +57,60 @@
 					let bt = b.time ?? repetitionLimit;
 					if (at > bt) return 1;
 					else if (bt > at) return -1;
-					else return 0;
+					else return (Math.random() < 0.5 ? -1 : 1);
 				})
-				setInterval(sortuj,60*1000)
+				store();
+			}
+			function store() {
+				let toStore = pojecia.slice();
+				if (pojecie)
+					toStore.push(pojecie);
+				zestaw.pojecia = toStore;
+				toStore = JSON.stringify(zestaw);
+				localStorage.setItem(nazwaZestawu,toStore);
 			}
 			function start() {
 				zestaw = JSON.parse(zestaw);
 				pojecia = zestaw.pojecia.slice();
 
 				sortuj();
+				setInterval(sortuj,60*1000)
 				nastepna();
 
 				$("#tytul").text(zestaw.nazwa)
 
 				$("#odwroc").click(function() {
 					strona = !strona;
-					$("#fiszka > div").text(pojecie[(strona ? "war1" : "war2")])
+					$("#fiszka > span").text(pojecie[(strona ? "war1" : "war2")])
 					$("#fiszka").toggleClass("drugaStrona");
 				})
 				
-				$("#znam").click(function() { odloz(3*24*60); })
+				$("#znam").click(function() {
+					let dzien = 24*60
+					if (!pojecia.umiej) {
+						pojecia.umiej = 1;
+						odloz(60);
+					}
+					else {
+						pojecie.umiej++;
+						switch (pojecia.umiej) {
+							case 0: odloz(60); break;
+							case 1: odloz(dzien); break;
+							case 2: odloz(2*dzien); break;
+							case 3: odloz(5*dzien); break;
+							case 4: odloz(14*dzien); break;
+							case 5: odloz(30*dzien); break;
+							default: odloz(); break;
+						}
+					}
+				})
 				$("#prawie").click(function() { odloz(10); });
 				$("#powtorze").click(function() { odloz(5); });
 				$("#nieznam").click(function() { odloz(1); });
 			}
 
 			$(document).ready(function() {
-				let nazwaZestawu = localStorage.getItem("zestaw") ?? "niem";
+				nazwaZestawu = localStorage.getItem("zestaw") ?? "niem";
 				zestaw = localStorage.getItem(nazwaZestawu);
 				if (zestaw && zestaw != 'undefined') {
 					start();
@@ -84,7 +130,7 @@
 			<label id="zaczOdDrContainer">Zacznij od drugiej strony<input id="zaczOdDr" type="checkbox"/></label>
 			<div id="fiszkiPoj">
 				<div id="fiszka">
-					<div>brak pojęć</div>
+					<span>brak pojęć</span>
 				</div>
 			</div>
 			<div class="center"><button id="odwroc">odwróć</button></div>

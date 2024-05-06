@@ -15,7 +15,9 @@ class Index {
 			this.zestaw = new NiemieckiUbrania();
 		else if (this.wyborZestawu.value === "geo")
 			this.zestaw = new ParkiNarodowe();
-		localStorage.setItem(this.wyborZestawu.value,JSON.stringify(this.zestaw));
+		let z = localStorage.getItem(this.wyborZestawu.value);
+		if (!z || z == "undefined")
+			localStorage.setItem(this.wyborZestawu.value,JSON.stringify(this.zestaw));
 		this.listaPojec.innerHTML = "";
 		let s = this.zestaw.Sortuj(this.wyborSortowania.value);
 		for (let el of s) {
@@ -24,6 +26,10 @@ class Index {
 			else
 				this.listaPojec.innerHTML += `<div>${el.war1} - ${el.war2}</div>`;
 		}
+	}
+	zerujPostep() {
+		if (confirm("Czy na pewno chcesz wyzerować postęp?\nUsunie to także własne pojęcia!"))
+			localStorage.setItem(this.wyborZestawu.value,JSON.stringify(this.zestaw));
 	}
 	/*wczytajZestawy() {
 		let zestawyStr = localStorage.getItem("zestawy");
@@ -48,6 +54,7 @@ interface Pytanie {
 	war2: string | string[];
 	kat?: string;
 	time?: Date; // Czas następnego powtórzenia
+	umiej?: number; // Stopień umiejętności
 }
 
 class Zestaw {

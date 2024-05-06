@@ -27,7 +27,9 @@ var Index = /** @class */ (function () {
             this.zestaw = new NiemieckiUbrania();
         else if (this.wyborZestawu.value === "geo")
             this.zestaw = new ParkiNarodowe();
-        localStorage.setItem(this.wyborZestawu.value, JSON.stringify(this.zestaw));
+        var z = localStorage.getItem(this.wyborZestawu.value);
+        if (!z || z == "undefined")
+            localStorage.setItem(this.wyborZestawu.value, JSON.stringify(this.zestaw));
         this.listaPojec.innerHTML = "";
         var s = this.zestaw.Sortuj(this.wyborSortowania.value);
         for (var _i = 0, s_1 = s; _i < s_1.length; _i++) {
@@ -37,6 +39,10 @@ var Index = /** @class */ (function () {
             else
                 this.listaPojec.innerHTML += "<div>".concat(el.war1, " - ").concat(el.war2, "</div>");
         }
+    };
+    Index.prototype.zerujPostep = function () {
+        if (confirm("Czy na pewno chcesz wyzerować postęp?"))
+            localStorage.setItem(this.wyborZestawu.value, JSON.stringify(this.zestaw));
     };
     return Index;
 }());
