@@ -1,12 +1,12 @@
 [
-	{"nazwa":"Niemiecki Ubrania","pojecia":[{"war1":"der Anzug","war2":"garnitur","kat":"der"},{"war1":"das Armband","war2":"branzoletka","kat":"das"},
+	{"id":"niemUbr","nazwa":"Niemiecki Ubrania","pojecia":[{"war1":"der Anzug","war2":"garnitur","kat":"der"},{"war1":"das Armband","war2":"branzoletka","kat":"das"},
 	{"war1":"die Armbanduhr","war2":"zegarek","kat":"die"},{"war1":"die Bluse","war2":"bluzka","kat":"die"},{"war1":"das Deodorant","war2":"dezodorant","kat":"das"},
 	{"war1":"der/das Puder","war2":"puder"},{"war1":"der/das Sakko","war2":"marynarka"},{"war1":"der Gürtel","war2":"pasek","kat":"der"},{"war1":"die Gürteltasche",
 	"war2":"Torba \"nerka\"","kat":"die"},{"war1":"die Haarbürste","war2":"szczotka do włosów","kat":"die"},{"war1":"die Halskette","war2":"łańcuszek","kat":"die"},
 	{"war1":"das Halstuch","war2":"apaszka","kat":"das"},{"war1":"die Handcreme","war2":"krem do rąk","kat":"die"},{"war1":"die Handyhülle","war2":"osłona na telefon","kat":"die"},
 	{"war1":"das Hemd","war2":"koszula","kat":"das"},{"war1":"die Hose","war2":"spodnie","kat":"die"},{"war1":"der Hut","war2":"kapelusz","kat":"der"},{"war1":"die Jacke",
 	"war2":"kurtka","kat":"die"},{"war1":"das Kleid","war2":"sukienka","kat":"das"},{"war1":"die Kleidung","war2":"ubranie","kat":"die"},
-	{"war1":"der Kniestrumpf","war2":"podkolanówka","kat":"der"},{"war1":"der Kopfhörer","war2":"słuchawka","kat":"der"},{"war1":"die Kopfhörer","war2":"słuchawki","kat":"die"},
+	{"war1":"die Kniestrümpfe","war2":"podkolanówki","kat":"der"},{"war1":"der Kopfhörer","war2":"słuchawka","kat":"der"},{"war1":"die Kopfhörer","war2":"słuchawki","kat":"die"},
 	{"war1":"die Kosmetika","war2":"kosmetyki","kat":"die"},{"war1":"die Krawatte","war2":"krawat","kat":"die"},{"war1":"die Lederjacke","war2":"kurtka skórzana","kat":"die"},
 	{"war1":"der Lippenbalsam","war2":"balsam do ust","kat":"der"},{"war1":"der Lippenstift","war2":"pomadka do ust","kat":"der"},
 	{"war1":"die Lunchbox","war2":"pudełko na drugie śniadanie","kat":"die"},{"war1":"der Mantel","war2":"płaszcz","kat":"der"},{"war1":"die Mütze","war2":"czapka","kat":"die"},
@@ -17,5 +17,23 @@
 	{"war1":"die Schultasche","war2":"torba do szkoły","kat":"die"},{"war1":"die Sneakers","war2":"trampki","kat":"die"},{"war1":"die Socken","war2":"skarpetki","kat":"die"},
 	{"war1":"die Strumpfhose","war2":"rajstopy","kat":"die"},{"war1":"das Sweatshirt","war2":"bluza","kat":"das"},{"war1":"die Trinkflasche","war2":"bidon","kat":"die"},
 	{"war1":"der Turnbeutel","war2":"worek na strój gimnastyczny","kat":"der"},{"war1":"der USB-Stick","war2":"pendrive","kat":"der"},{"war1":"die Weste","war2":"kamizelka","kat":"die"}],
-	"slownik":"https://www.diki.pl/slownik-niemieckiego"}
+	"slownik":"https://www.diki.pl/slownik-niemieckiego"},
+	{
+		"id":"niemOpisUbr","nazwa":"Niemiecki opis ubrań",
+		"pojecia":[
+			{"war1":"ausgefallen","war2":"ekstrawagancki"},
+			{"war1":"bequem","war2":"wygodny"},
+			{"war1":"elegant","war2":"elegancki"},
+			{"war1":"orginell","war2":"orginalny"},
+			{"war1":"praktisch","war2":"praktyczny"},
+			{"war1":"kariert","war2":"w kratkę"},
+			{"war1":"gepunktet","war2":"w kropki"},
+			{"war1":"gemustert","war2":"we wzory"},
+			{"war1":"gestreift","war2":"w paski"},
+			{"war1":"kurz","war2":"krótki"},
+			{"war1":"lang","war2":"długi"},
+			{"war1":"eng","war2":"wąski"},
+			{"war1":"weit","war2":"szeroki"}],
+		"slownik":"https://www.diki.pl/slownik-niemieckiego"
+	}
 ]

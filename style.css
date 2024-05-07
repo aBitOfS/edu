@@ -25,7 +25,9 @@ a {
 	font-family: Comfortaa, 'Trebuchet MS', Arial, sans-serif;
 }
 
-button {
+button, .button {
+	text-align: center;
+	font-family: Comfortaa, 'Trebuchet MS', Arial, sans-serif;
 	color: var(--fontColor2);
 	background-color: var(--customColor2);
 	font-size: x-large;
@@ -33,12 +35,12 @@ button {
 	border-radius: 10px;
 	padding: 10px;
 }
-button:hover {
+button:hover, .button:hover {
 	background-color: var(--customColor1);
 	border-color: var(--highlighColor);
 	color: var(--highlighColor);
 }
-button:disabled {
+button:disabled, .button:disabled {
 	background-color: gray;
 	color: var(--fontColor2);
 	border: 2px var(--fontColor2) solid;
@@ -121,6 +123,9 @@ header > label {
 	align-items: center;
 	font-size: xx-large;
 	margin: 5px 0px;
+}
+#fiszka > span {
+	text-align: center;
 }
 #tytul {
 	display: inline;

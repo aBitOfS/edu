@@ -1,5 +1,10 @@
+declare function doWczytaj();
+declare function doZapisz(zestawy: Zestaw[]);
+declare function doZmiana(wyswietl: Pytanie[]);
+
 class Index {
 	zestaw: Zestaw;
+	zestawy: Zestaw[];
 	wyborZestawu: HTMLSelectElement;
 	listaPojec: HTMLElement;
 	wyborSortowania: HTMLSelectElement;
@@ -7,50 +12,52 @@ class Index {
 		this.wyborZestawu = document.getElementById("wyborZestawu") as HTMLSelectElement ?? document.createElement("select");
 		this.listaPojec = document.getElementById("listaPojec") ?? document.createElement("div");
 		this.wyborSortowania = document.getElementById("wyborSortowania") as HTMLSelectElement ?? document.createElement("select");
-		this.ZmianaZestawu();
 	}
 	ZmianaZestawu() {
-		localStorage.setItem("zestaw",this.wyborZestawu.value);
-		if (this.wyborZestawu.value === "niem")
-			this.zestaw = new NiemieckiUbrania();
-		else if (this.wyborZestawu.value === "geo")
-			this.zestaw = new ParkiNarodowe();
-		let z = localStorage.getItem(this.wyborZestawu.value);
-		if (!z || z == "undefined")
-			localStorage.setItem(this.wyborZestawu.value,JSON.stringify(this.zestaw));
-		this.listaPojec.innerHTML = "";
-		let s = this.zestaw.Sortuj(this.wyborSortowania.value);
-		for (let el of s) {
-			if (el.kat)
-				this.listaPojec.innerHTML += `<div><span class="kat${el.kat}">${el.kat}</span> ${el.war1.slice(4)} - ${el.war2}</div>`;
-			else
-				this.listaPojec.innerHTML += `<div>${el.war1} - ${el.war2}</div>`;
-		}
+		for (let el of this.zestawy)
+			if (el.id == this.wyborZestawu.value) {
+				this.zestaw = el;
+				localStorage.setItem("zestaw",this.wyborZestawu.value);
+				localStorage.setItem(this.wyborZestawu.value,JSON.stringify(this.zestaw));
+
+				doZmiana(sortujPojecia(this.zestaw.pojecia,this.wyborSortowania.value));
+				/*this.listaPojec.innerHTML = "";
+				let s = sortujPojecia(this.zestaw.pojecia,this.wyborSortowania.value);
+				for (let el of s) {
+					if (el.kat)
+						this.listaPojec.innerHTML += `<div><span class="kat${el.kat}">${el.kat}</span> ${el.war1.slice(4)} - ${el.war2}</div>`;
+					else
+						this.listaPojec.innerHTML += `<div>${el.war1} - ${el.war2}</div>`;
+				}*/
+				return;
+			}
+		alert("Brak wybranego zestawu");
 	}
 	zerujPostep() {
-		if (confirm("Czy na pewno chcesz wyzerować postęp?\nUsunie to także własne pojęcia!"))
-			localStorage.setItem(this.wyborZestawu.value,JSON.stringify(this.zestaw));
+		if (confirm("Czy na pewno chcesz wyzerować postęp ze wszystkich zestawów?\nUsunie to także własne pojęcia!")) {
+			localStorage.removeItem("zestawy");
+			this.wczytajZestawy();
+		}
 	}
-	/*wczytajZestawy() {
+	wczytajZestawy() {
 		let zestawyStr = localStorage.getItem("zestawy");
-		if (zestawyStr && zestawyStr != "undefined") { // Zapisane zestawy
-			let zestawy = JSON.parse(zestawyStr);
-			this.zapiszZestawy(zestawy);
-		}
-		else {
-			$.getJSON("zestawy.json",(zestawy) => {
-				this.zapiszZestawy(zestawy);
-			})
-		}
+		if (zestawyStr && zestawyStr != "undefined") // Zapisane zestawy
+			this.zapiszZestawy(JSON.parse(zestawyStr));
+		else
+			doWczytaj()
 	}
 	zapiszZestawy(zestawy) {
+		this.zestawy = zestawy;
 		localStorage.setItem("zestawy",JSON.stringify(zestawy));
+		this.zestaw = this.zestawy[0];
 		// Ustawienie przedmiotów i zestawów
-	}*/
+		doZapisz(this.zestawy);
+		this.ZmianaZestawu();
+	}
 }
 
 interface Pytanie {
-	war1: string | string[];
+	war1: string; // | string[]
 	war2: string | string[];
 	kat?: string;
 	time?: Date; // Czas następnego powtórzenia
@@ -58,47 +65,13 @@ interface Pytanie {
 }
 
 class Zestaw {
+	id: string;
 	nazwa: string;
 	opis?: string;
 	pojecia: Pytanie[];
 	slownik?: URL;
 	//type?: "niemiecki" | "mapa";
 	rodzajniki?: [number, string][]; // 0 - der, 1 - die, 2 - das, 3 - l.mn.
-	Sortuj(typ: string) { // "alf" | "rodz" | "org" | "time"
-		let sP = this.pojecia.slice();
-		if (typ === "alf") {
-			sP.sort((a:Pytanie,b:Pytanie) => {
-				let an = a.war1, bn = b.war1;
-				if (a.kat) // && a.kat in ["der","die","das"]
-					an = a.war1.slice(4);
-				if (b.kat) // && b.kat in ["der","die","das"]
-					bn = b.war1.slice(4);
-				if (an > bn) return 1;
-				else if (bn > an) return -1;
-				else return 0;
-			})
-		}
-		else if (typ === "rodz") {
-			sP.sort((a:Pytanie,b:Pytanie) => {
-				if (a.kat && (!b.kat || a.kat > b.kat)) return 1;
-				else if (b.kat && (!a.kat || b.kat > a.kat)) return -1;
-				else if (a.war1 > b.war1) return 1;
-				else if (b.war1 > a.war1) return -1;
-				else return 0;
-			})
-		}
-		else if (typ === "time") {
-			let repetitionLimit = Date.now();
-			sP.sort((a:Pytanie,b:Pytanie) => {
-				let at = a.time ?? repetitionLimit;
-				let bt = b.time ?? repetitionLimit;
-				if (at > bt) return 1;
-				else if (bt > at) return -1;
-				else return 0;
-			})
-		}
-		return sP;
-	}
 }
 
 class Slow implements Pytanie {
@@ -116,12 +89,13 @@ class Slow implements Pytanie {
 
 class NiemieckiUbrania extends Zestaw {
 	nazwa = "Niemiecki Ubrania";
+	id = "niemUbr"
 	pojecia = [new Slow("der Anzug","garnitur"), new Slow("das Armband","branzoletka"),new Slow("die Armbanduhr", "zegarek"),new Slow("die Bluse","bluzka"),
 		new Slow("das Deodorant","dezodorant"), new Slow("der/das Puder","puder"),new Slow("der/das Sakko", "marynarka"),new Slow("der Gürtel","pasek"),
 		new Slow("die Gürteltasche",'Torba "nerka"'), new Slow("die Haarbürste","szczotka do włosów"),new Slow("die Halskette", "łańcuszek"),new Slow("das Halstuch","apaszka"),
 		new Slow("die Handcreme","krem do rąk"), new Slow("die Handyhülle","osłona na telefon"),new Slow("das Hemd", "koszula"),new Slow("die Hose","spodnie"),
 		new Slow("der Hut","kapelusz"), new Slow("die Jacke","kurtka"),new Slow("das Kleid", "sukienka"),new Slow("die Kleidung","ubranie"),
-		new Slow("der Kniestrumpf","podkolanówka"), new Slow("der Kopfhörer","słuchawka"),new Slow("die Kopfhörer", "słuchawki"),new Slow("die Kosmetika","kosmetyki"),
+		new Slow("die Kniestrümpfe","podkolanówki"), new Slow("der Kopfhörer","słuchawka"),new Slow("die Kopfhörer", "słuchawki"),new Slow("die Kosmetika","kosmetyki"),
 		new Slow("die Krawatte","krawat"), new Slow("die Lederjacke","kurtka skórzana"),new Slow("der Lippenbalsam", "balsam do ust"),new Slow("der Lippenstift","pomadka do ust"),
 		new Slow("die Lunchbox","pudełko na drugie śniadanie"), new Slow("der Mantel","płaszcz"),new Slow("die Mütze", "czapka"),new Slow("der Notizblock","Blok do notatek"),
 		new Slow("die Ohrringe","kolczyki"), new Slow("das Parfüm","perfumy"),new Slow("der Pullover", "sweter"),new Slow("der Ring","pierścionek"),
@@ -141,6 +115,7 @@ class MapP implements Pytanie {
 }
 
 class ParkiNarodowe extends Zestaw {
+	id = "parkNar"
 	nazwa = "Parki Narodowe";
 	pojecia = [new Slow("Słowiński PN","Pomorskie")];
 }
@@ -148,4 +123,50 @@ class ParkiNarodowe extends Zestaw {
 var index;
 function startIndex() {
 	index = new Index();
+	index.wczytajZestawy();
+}
+function sortujPojecia(pojecia: Pytanie[], typ: string) {
+	let sP = pojecia.slice();
+	if (typ === "alf") {
+		sP.sort((a:Pytanie,b:Pytanie) => {
+			let an = a.war1, bn = b.war1;
+			if (a.kat) // && a.kat in ["der","die","das"]
+				an = a.war1.slice(4);
+			if (b.kat) // && b.kat in ["der","die","das"]
+				bn = b.war1.slice(4);
+			if (an.toLowerCase() > bn.toLowerCase()) return 1;
+			else if (bn.toLowerCase() > an.toLowerCase()) return -1;
+			else return 0;
+		})
+	}
+	else if (typ === "rodz") {
+		sP.sort((a:Pytanie,b:Pytanie) => {
+			if (a.kat && (!b.kat || a.kat > b.kat)) return 1;
+			else if (b.kat && (!a.kat || b.kat > a.kat)) return -1;
+			else if (a.war1 > b.war1) return 1;
+			else if (b.war1 > a.war1) return -1;
+			else return 0;
+		})
+	}
+	else if (typ === "time") {
+		let repetitionLimit = Date.now();
+		sP.sort((a:Pytanie,b:Pytanie) => {
+			let at = a.time ?? repetitionLimit;
+			let bt = b.time ?? repetitionLimit;
+			if (at > bt) return 1;
+			else if (bt > at) return -1;
+			else return (Math.random() < 0.5 ? -1 : 1);
+		})
+	}
+	else if (typ === "umiej") {
+		let repetitionLimit = Date.now();
+		sP.sort((a:Pytanie,b:Pytanie) => {
+			let at = a.time ?? repetitionLimit;
+			let bt = b.time ?? repetitionLimit;
+			if (at > bt) return 1;
+			else if (bt > at) return -1;
+			else return 0;
+		})
+	}
+	return sP;
 }

@@ -37,7 +37,7 @@
 				strona = $(zaczOdDr).prop("checked");
 
 				if (pojecie.time && pojecie.time > Date.now()+60000) {
-					alert("Dobra robota! Ukończyłeś na teraz wróć za "+czasNaTekst(pojecie.time-Date.now()));
+					alert("Dobra robota! Ukończyłeś na teraz wróć za "+czasNaTekst(pojecie.time-60000));
 				}
 
 				$("#fiszka > span").text(pojecie[(strona ? "war1" : "war2")])
@@ -50,6 +50,16 @@
 				nastepna();
 			}
 			function sortuj() {
+				console.log("sortuję");
+				let repetitionLimit = Date.now();
+				pojecia.sort(function(a,b) {
+					let at = a.time ?? repetitionLimit;
+					let bt = b.time ?? repetitionLimit;
+					if (at > bt) return 1;
+					else if (bt > at) return -1;
+					else return (Math.random() < 0.5 ? -1 : 1);
+				})
+				store();
 			}
 			function store() {
 				let toStore = pojecia.slice();
@@ -63,11 +73,8 @@
 				zestaw = JSON.parse(zestaw);
 				pojecia = zestaw.pojecia.slice();
 
-				pojecia = sortujPojecia(pojecia,"time");
-				setInterval(function() {
-					pojecia = sortujPojecia(pojecia,"time");
-					store();
-				},60*1000)
+				sortuj();
+				setInterval(sortuj,60*1000)
 				nastepna();
 
 				$("#tytul").text(zestaw.nazwa)

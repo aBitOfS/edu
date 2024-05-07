@@ -11,25 +11,50 @@
     	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
 		<script src="script.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script>
+			function doWczytaj() {
+				console.log("doWczytaj")
+				// No https
+				index.zapiszZestawy([new NiemieckiUbrania, new ParkiNarodowe])
+				$.getJSON("zestawy.json",(zestawy) => {
+					if (zestawy && zestawy != "undefined")
+						index.zapiszZestawy(zestawy);
+					console.log("form json");
+				})
+			}
+			function doZapisz(zestawy) {
+				console.log("doZapisz")
+				$("#wyborZestawu").empty()
+				for (let el of zestawy)
+					$("#wyborZestawu").append(`<option value="${el.id}">${el.nazwa}</option>`)
+			}
+			function doZmiana(wyswietl) {
+				console.log("doZmiana")
+				$("#listaPojec").empty()
+				for (let el of wyswietl) {
+					$("#listaPojec").append(el.kat ? `<div><span class="kat${el.kat}">${el.kat}</span>
+						${el.war1.slice(4)} - ${el.war2}</div>`:`<div>${el.war1} - ${el.war2}</div>`)
+				}
+				
+			}
+		</script>
 	</head>
 	<body onload="startIndex()">
 		<header>
-			<a href="https://abitofs.github.io"><img src="media/logoD.svg" alt="abitofs" height="50px"/> HOME </a>
+			<a href="https://abitofs.github.io"><img src="https://raw.githubusercontent.com/aBitOfS/aBitOfS/main/abitofs.png" alt="abitofs" height="50px"/> HOME </a>
 			<a href="index.html"><img src="media/logoEdu.svg" alt="edu" height="50px"/> EDU</a>
 			<label>Przedmiot
 				<select id="wyborZestawu" name="wyborZestawu" onchange="index.ZmianaZestawu()">
-					<option value="niem">Niemiecki</option>
-					<option value="geo">Geografia</option>
-					<option value="ang">Angielski</option>
+					<option value="">Brak zestawów</option>
 				</select>
 			</label>
 		</header>
 		<main>
 			<div class="buttonsInRow">
-				<a><button disabled="disabled">Zacznij naukę!</button></a>
-				<a href="fiszki.html"><button>Fiszki</button></a>
-				<a><button disabled="disabled">Graj!</button></a>
-				<a href="media/Odmiana niemiecki.png"><button>Odmiana</button></a>
+				<button disabled="disabled">Zacznij naukę!</button>
+				<a class="button" href="fiszki.html">Fiszki</a>
+				<button disabled="disabled">Graj!</button>
+				<a class="button" href="media/Odmiana niemiecki.png" target="_blank">Odmiana</a>
 			</div>
 			<h2 id="listaPojecHeader">Lista Pojęć: 
 			<label>Sortuj
@@ -37,13 +62,15 @@
 					<option value="rodz">Według rodzajnika</option>
 					<option value="org">Orginalna kolejność</option>
 					<option value="alf">Alfabetycznie</option>
+					<option value="umiej">Według umiejętności</option>
 				</select>
 			</label></h2>
-			<div id="listaPojec"></div>
+			<div id="listaPojec">Brak pojęć</div>
 			<div class="buttonsInRow">
 				<button id="eks" onclick="alert(JSON.stringify(index.zestaw))">Eksportuj (.json)</button>
 				<button id="zer" onclick="index.zerujPostep()">Zeruj postęp</button>
 				<button disabled="disabled">Dodaj pojęcie</button>
+				<button disabled="disabled">Utwórz</button>
 			</div>
 		</main>
 	</body>
