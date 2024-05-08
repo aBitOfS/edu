@@ -35,5 +35,11 @@
 			{"war1":"eng","war2":"wąski"},
 			{"war1":"weit","war2":"szeroki"}],
 		"slownik":"https://www.diki.pl/slownik-niemieckiego"
+	},
+	{
+		"id":"niemKol","nazwa":"Niemiecki kolory",
+		"pojecia":[
+			{"war1":"gelb","war2":"żółty"}
+		]
 	}
 ]
