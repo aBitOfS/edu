@@ -19,48 +19,50 @@ var Index = /** @class */ (function () {
         this.wyborZestawu = (_a = document.getElementById("wyborZestawu")) !== null && _a !== void 0 ? _a : document.createElement("select");
         this.listaPojec = (_b = document.getElementById("listaPojec")) !== null && _b !== void 0 ? _b : document.createElement("div");
         this.wyborSortowania = (_c = document.getElementById("wyborSortowania")) !== null && _c !== void 0 ? _c : document.createElement("select");
+        this.wczytajZestawy();
     }
-    Index.prototype.ZmianaZestawu = function () {
+    Index.prototype.wczytajZestawy = function () {
+        var _a;
+        // Wczytywanie listy wszystkich zestawów
+        this.zestawy = wczytajJSON();
+        // Zapisane tylko lokalnie
+        var zestawyStr = localStorage.getItem("zestawy");
+        if (zestawyStr && zestawyStr != "undefined")
+            (_a = this.zestawy).push.apply(_a, JSON.parse(zestawyStr));
+        // Odświerzenie strony
+        doZapisz(this.zestawy);
+        // Wybrany zestaw
+        var nazwaZestawu = localStorage.getItem("zestaw");
+        if (nazwaZestawu && nazwaZestawu != "undefined")
+            this.wyborZestawu.value = nazwaZestawu;
+        this.zmianaZestawu();
+    };
+    Index.prototype.zmianaZestawu = function () {
         for (var _i = 0, _a = this.zestawy; _i < _a.length; _i++) {
             var el = _a[_i];
             if (el.id == this.wyborZestawu.value) {
-                this.zestaw = el;
+                // Wczytywanie postępu
+                var mem = localStorage.getItem(el.id);
+                if (mem && mem != "undefined")
+                    this.zestaw = JSON.parse(mem);
+                else {
+                    // Bez postępu
+                    this.zestaw = el;
+                    localStorage.setItem(this.wyborZestawu.value, JSON.stringify(this.zestaw));
+                }
                 localStorage.setItem("zestaw", this.wyborZestawu.value);
-                localStorage.setItem(this.wyborZestawu.value, JSON.stringify(this.zestaw));
                 doZmiana(sortujPojecia(this.zestaw.pojecia, this.wyborSortowania.value));
-                /*this.listaPojec.innerHTML = "";
-                let s = sortujPojecia(this.zestaw.pojecia,this.wyborSortowania.value);
-                for (let el of s) {
-                    if (el.kat)
-                        this.listaPojec.innerHTML += `<div><span class="kat${el.kat}">${el.kat}</span> ${el.war1.slice(4)} - ${el.war2}</div>`;
-                    else
-                        this.listaPojec.innerHTML += `<div>${el.war1} - ${el.war2}</div>`;
-                }*/
                 return;
             }
         }
         alert("Brak wybranego zestawu");
     };
     Index.prototype.zerujPostep = function () {
-        if (confirm("Czy na pewno chcesz wyzerować postęp ze wszystkich zestawów?\nUsunie to także własne pojęcia!")) {
+        if (confirm("Czy na pewno chcesz wyzerować postęp?")) {
+            localStorage.removeItem(this.zestaw.id);
             localStorage.removeItem("zestawy");
             this.wczytajZestawy();
         }
-    };
-    Index.prototype.wczytajZestawy = function () {
-        var zestawyStr = localStorage.getItem("zestawy");
-        if (zestawyStr && zestawyStr != "undefined") // Zapisane zestawy
-            this.zapiszZestawy(JSON.parse(zestawyStr));
-        else
-            doWczytaj();
-    };
-    Index.prototype.zapiszZestawy = function (zestawy) {
-        this.zestawy = zestawy;
-        localStorage.setItem("zestawy", JSON.stringify(zestawy));
-        this.zestaw = this.zestawy[0];
-        // Ustawienie przedmiotów i zestawów
-        doZapisz(this.zestawy);
-        this.ZmianaZestawu();
     };
     return Index;
 }());
@@ -127,12 +129,15 @@ var ParkiNarodowe = /** @class */ (function (_super) {
 var index;
 function startIndex() {
     index = new Index();
-    index.wczytajZestawy();
 }
 function sortujPojecia(pojecia, typ) {
     var sP = pojecia.slice();
-    if (typ === "alf") {
-        sP.sort(function (a, b) {
+    var repetitionLimit = Date.now();
+    function rand() {
+        return Math.random() < 0.5 ? -1 : 1;
+    }
+    function alf(a, b) {
+        {
             var an = a.war1, bn = b.war1;
             if (a.kat) // && a.kat in ["der","die","das"]
                 an = a.war1.slice(4);
@@ -144,49 +149,74 @@ function sortujPojecia(pojecia, typ) {
                 return -1;
             else
                 return 0;
-        });
+        }
     }
-    else if (typ === "rodz") {
-        sP.sort(function (a, b) {
-            if (a.kat && (!b.kat || a.kat > b.kat))
-                return 1;
-            else if (b.kat && (!a.kat || b.kat > a.kat))
-                return -1;
-            else if (a.war1 > b.war1)
-                return 1;
-            else if (b.war1 > a.war1)
-                return -1;
-            else
-                return 0;
-        });
+    function rodz(a, b) {
+        if (a.kat && (!b.kat || a.kat > b.kat))
+            return 1;
+        else if (b.kat && (!a.kat || b.kat > a.kat))
+            return -1;
+        else
+            return alf(a, b);
     }
-    else if (typ === "time") {
-        var repetitionLimit_1 = Date.now();
-        sP.sort(function (a, b) {
-            var _a, _b;
-            var at = (_a = a.time) !== null && _a !== void 0 ? _a : repetitionLimit_1;
-            var bt = (_b = b.time) !== null && _b !== void 0 ? _b : repetitionLimit_1;
-            if (at > bt)
-                return 1;
-            else if (bt > at)
-                return -1;
-            else
-                return (Math.random() < 0.5 ? -1 : 1);
-        });
+    function time(a, b) {
+        var _a, _b;
+        var at = (_a = a.time) !== null && _a !== void 0 ? _a : repetitionLimit;
+        var bt = (_b = b.time) !== null && _b !== void 0 ? _b : repetitionLimit;
+        if (at > bt)
+            return 1;
+        else if (bt > at)
+            return -1;
+        else
+            return rand();
     }
-    else if (typ === "umiej") {
-        var repetitionLimit_2 = Date.now();
-        sP.sort(function (a, b) {
-            var _a, _b;
-            var at = (_a = a.time) !== null && _a !== void 0 ? _a : repetitionLimit_2;
-            var bt = (_b = b.time) !== null && _b !== void 0 ? _b : repetitionLimit_2;
-            if (at > bt)
-                return 1;
-            else if (bt > at)
-                return -1;
-            else
-                return 0;
-        });
+    function umiej(a, b) {
+        var _a, _b;
+        var at = (_a = a.time) !== null && _a !== void 0 ? _a : repetitionLimit;
+        var bt = (_b = b.time) !== null && _b !== void 0 ? _b : repetitionLimit;
+        if (at > bt)
+            return 1;
+        else if (bt > at)
+            return -1;
+        else
+            return alf(a, b);
     }
+    if (typ === "alf")
+        sP.sort(alf);
+    else if (typ === "rodz")
+        sP.sort(rodz);
+    else if (typ === "time")
+        sP.sort(time);
+    else if (typ === "umiej")
+        sP.sort(umiej);
     return sP;
+    /*if (typ === "alf") {
+        sP.sort((a:Pytanie,b:Pytanie) => {
+            let an = a.war1, bn = b.war1;
+            if (a.kat) // && a.kat in ["der","die","das"]
+                an = a.war1.slice(4);
+            if (b.kat) // && b.kat in ["der","die","das"]
+                bn = b.war1.slice(4);
+            if (an.toLowerCase() > bn.toLowerCase()) return 1;
+            else if (bn.toLowerCase() > an.toLowerCase()) return -1;
+            else return 0;
+        })
+    }*/
+}
+function czasNaTekst(czas) {
+    czas = Math.floor(czas / 60000); // minuty
+    if (czas == 1)
+        return "minutę";
+    if (czas < 60)
+        return "".concat(czas, " ").concat(czas < 5 ? "minuty" : "minut");
+    else if (czas < 120)
+        return "godzinę";
+    else if (czas < 60 * 24) {
+        czas = Math.floor(czas / 6) / 10;
+        return "".concat(czas, " ").concat(czas < 5 ? "godziny" : "godzin");
+    }
+    else {
+        czas = Math.floor(czas / 60 / 24);
+        return "".concat(czas, " ").concat(czas == 1 ? "dzień" : "dni");
+    }
 }

@@ -1,6 +1,6 @@
-declare function doWczytaj();
-declare function doZapisz(zestawy: Zestaw[]);
-declare function doZmiana(wyswietl: Pytanie[]);
+declare function doZapisz(zestawy: Zestaw[]): void;
+declare function doZmiana(wyswietl: Pytanie[]): void;
+declare function wczytajJSON(): Zestaw[];
 
 class Index {
 	zestaw: Zestaw;
@@ -12,47 +12,47 @@ class Index {
 		this.wyborZestawu = document.getElementById("wyborZestawu") as HTMLSelectElement ?? document.createElement("select");
 		this.listaPojec = document.getElementById("listaPojec") ?? document.createElement("div");
 		this.wyborSortowania = document.getElementById("wyborSortowania") as HTMLSelectElement ?? document.createElement("select");
+		this.wczytajZestawy();
 	}
-	ZmianaZestawu() {
+	wczytajZestawy() {
+		// Wczytywanie listy wszystkich zestawów
+		this.zestawy = wczytajJSON();
+			// Zapisane tylko lokalnie
+		let zestawyStr = localStorage.getItem("zestawy");
+		if (zestawyStr && zestawyStr != "undefined")
+			this.zestawy.push(...JSON.parse(zestawyStr));
+		// Odświerzenie strony
+		doZapisz(this.zestawy);
+		// Wybrany zestaw
+		let nazwaZestawu = localStorage.getItem("zestaw");
+		if (nazwaZestawu && nazwaZestawu != "undefined")
+			this.wyborZestawu.value = nazwaZestawu;
+		this.zmianaZestawu();
+	}
+	zmianaZestawu() {
 		for (let el of this.zestawy)
 			if (el.id == this.wyborZestawu.value) {
-				this.zestaw = el;
+				// Wczytywanie postępu
+				let mem = localStorage.getItem(el.id);
+				if (mem && mem != "undefined")
+					this.zestaw = JSON.parse(mem);
+				else {
+					// Bez postępu
+					this.zestaw = el;
+					localStorage.setItem(this.wyborZestawu.value,JSON.stringify(this.zestaw));
+				}
 				localStorage.setItem("zestaw",this.wyborZestawu.value);
-				localStorage.setItem(this.wyborZestawu.value,JSON.stringify(this.zestaw));
-
 				doZmiana(sortujPojecia(this.zestaw.pojecia,this.wyborSortowania.value));
-				/*this.listaPojec.innerHTML = "";
-				let s = sortujPojecia(this.zestaw.pojecia,this.wyborSortowania.value);
-				for (let el of s) {
-					if (el.kat)
-						this.listaPojec.innerHTML += `<div><span class="kat${el.kat}">${el.kat}</span> ${el.war1.slice(4)} - ${el.war2}</div>`;
-					else
-						this.listaPojec.innerHTML += `<div>${el.war1} - ${el.war2}</div>`;
-				}*/
 				return;
 			}
 		alert("Brak wybranego zestawu");
 	}
 	zerujPostep() {
-		if (confirm("Czy na pewno chcesz wyzerować postęp ze wszystkich zestawów?\nUsunie to także własne pojęcia!")) {
+		if (confirm("Czy na pewno chcesz wyzerować postęp?")) {
+			localStorage.removeItem(this.zestaw.id);
 			localStorage.removeItem("zestawy");
 			this.wczytajZestawy();
 		}
-	}
-	wczytajZestawy() {
-		let zestawyStr = localStorage.getItem("zestawy");
-		if (zestawyStr && zestawyStr != "undefined") // Zapisane zestawy
-			this.zapiszZestawy(JSON.parse(zestawyStr));
-		else
-			doWczytaj()
-	}
-	zapiszZestawy(zestawy) {
-		this.zestawy = zestawy;
-		localStorage.setItem("zestawy",JSON.stringify(zestawy));
-		this.zestaw = this.zestawy[0];
-		// Ustawienie przedmiotów i zestawów
-		doZapisz(this.zestawy);
-		this.ZmianaZestawu();
 	}
 }
 
@@ -123,11 +123,50 @@ class ParkiNarodowe extends Zestaw {
 var index;
 function startIndex() {
 	index = new Index();
-	index.wczytajZestawy();
 }
 function sortujPojecia(pojecia: Pytanie[], typ: string) {
 	let sP = pojecia.slice();
-	if (typ === "alf") {
+	let repetitionLimit = Date.now();
+
+	function rand() {
+		return Math.random() < 0.5 ? -1 : 1
+	}
+	function alf(a:Pytanie,b:Pytanie) {{
+		let an = a.war1, bn = b.war1;
+		if (a.kat) // && a.kat in ["der","die","das"]
+			an = a.war1.slice(4);
+		if (b.kat) // && b.kat in ["der","die","das"]
+			bn = b.war1.slice(4);
+		if (an.toLowerCase() > bn.toLowerCase()) return 1;
+		else if (bn.toLowerCase() > an.toLowerCase()) return -1;
+		else return 0;
+	}
+	}
+	function rodz(a:Pytanie,b:Pytanie) {
+		if (a.kat && (!b.kat || a.kat > b.kat)) return 1;
+		else if (b.kat && (!a.kat || b.kat > a.kat)) return -1;
+		else return alf(a,b);
+	}
+	function time(a:Pytanie,b:Pytanie) {
+		let at = a.time ?? repetitionLimit;
+		let bt = b.time ?? repetitionLimit;
+		if (at > bt) return 1;
+		else if (bt > at) return -1;
+		else return rand();
+	}
+	function umiej(a:Pytanie,b:Pytanie) {
+		let at = a.time ?? repetitionLimit;
+		let bt = b.time ?? repetitionLimit;
+		if (at > bt) return 1;
+		else if (bt > at) return -1;
+		else return alf(a,b);
+	}
+	if (typ === "alf") sP.sort(alf);
+	else if (typ === "rodz") sP.sort(rodz);
+	else if (typ === "time") sP.sort(time);
+	else if (typ === "umiej") sP.sort(umiej);
+	return sP;
+	/*if (typ === "alf") {
 		sP.sort((a:Pytanie,b:Pytanie) => {
 			let an = a.war1, bn = b.war1;
 			if (a.kat) // && a.kat in ["der","die","das"]
@@ -138,35 +177,23 @@ function sortujPojecia(pojecia: Pytanie[], typ: string) {
 			else if (bn.toLowerCase() > an.toLowerCase()) return -1;
 			else return 0;
 		})
+	}*/
+}
+
+function czasNaTekst(czas: number): string {
+	czas = Math.floor(czas/60000); // minuty
+	if (czas == 1)
+		return "minutę";
+	if (czas < 60)
+		return `${czas} ${czas < 5 ? "minuty" : "minut"}`;
+	else if (czas < 120)
+		return "godzinę";
+	else if (czas < 60*24) {
+		czas = Math.floor(czas/6)/10;
+		return `${czas} ${czas < 5 ? "godziny" : "godzin"}`;
 	}
-	else if (typ === "rodz") {
-		sP.sort((a:Pytanie,b:Pytanie) => {
-			if (a.kat && (!b.kat || a.kat > b.kat)) return 1;
-			else if (b.kat && (!a.kat || b.kat > a.kat)) return -1;
-			else if (a.war1 > b.war1) return 1;
-			else if (b.war1 > a.war1) return -1;
-			else return 0;
-		})
+	else {
+		czas = Math.floor(czas/60/24);
+		return `${czas} ${czas == 1 ? "dzień" : "dni"}`;
 	}
-	else if (typ === "time") {
-		let repetitionLimit = Date.now();
-		sP.sort((a:Pytanie,b:Pytanie) => {
-			let at = a.time ?? repetitionLimit;
-			let bt = b.time ?? repetitionLimit;
-			if (at > bt) return 1;
-			else if (bt > at) return -1;
-			else return (Math.random() < 0.5 ? -1 : 1);
-		})
-	}
-	else if (typ === "umiej") {
-		let repetitionLimit = Date.now();
-		sP.sort((a:Pytanie,b:Pytanie) => {
-			let at = a.time ?? repetitionLimit;
-			let bt = b.time ?? repetitionLimit;
-			if (at > bt) return 1;
-			else if (bt > at) return -1;
-			else return 0;
-		})
-	}
-	return sP;
 }

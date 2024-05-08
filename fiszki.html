@@ -14,30 +14,17 @@
 		<script>
 			var pojecia, pojecie, nazwaZestawu, zestaw, strona, poczatkowa = true;
 
-			function czasNaTekst(czas) {
-				czas = Math.floor(czas/60000); // minuty
-				if (czas == 1)
-					return "minutę";
-				if (czas < 60)
-					return `${czas} ${czas < 5 ? "minuty" : "minut"}`;
-				else if (czas < 120)
-					return "godzinę";
-				else if (czas < 60*24) {
-					czas = Math.floor(czas/6)/10;
-					return `${czas} ${czas < 5 ? "godziny" : "godzin"}`;
-				}
-				else {
-					czas = Math.floor(czas/60/24);
-					return `${czas} ${czas == 1 ? "dzień" : "dni"}`;
-				}
-			}
-
 			function nastepna() {
+				// Sortowanie
+				pojecia = sortujPojecia(pojecia,"time");
+				store();
+				//
 				pojecie = pojecia.shift();
 				strona = $(zaczOdDr).prop("checked");
 
 				if (pojecie.time && pojecie.time > Date.now()+60000) {
 					alert("Dobra robota! Ukończyłeś na teraz wróć za "+czasNaTekst(pojecie.time-Date.now()));
+					window.history.back();
 				}
 
 				$("#fiszka > span").text(pojecie[(strona ? "war1" : "war2")])
@@ -45,29 +32,24 @@
 			}
 			function odloz(ileMinut) {
 				pojecie.time = Date.now() + 60000 * ileMinut;
-				console.log("powtórzę za "+czasNaTekst(60000 * ileMinut));
+				console.log(`powtórzę ${pojecie.war1} za ${czasNaTekst(60000 * ileMinut)}`);
 				pojecia.push(pojecie)
 				nastepna();
 			}
-			function sortuj() {
-			}
 			function store() {
-				let toStore = pojecia.slice();
-				if (pojecie)
-					toStore.push(pojecie);
-				zestaw.pojecia = toStore;
-				toStore = JSON.stringify(zestaw);
-				localStorage.setItem(nazwaZestawu,toStore);
+				// Dodać ustawianie w orginalnej kolejności
+				zestaw.pojecia = pojecia.slice();
+				localStorage.setItem(nazwaZestawu,JSON.stringify(zestaw));
 			}
 			function start() {
 				zestaw = JSON.parse(zestaw);
 				pojecia = zestaw.pojecia.slice();
 
 				pojecia = sortujPojecia(pojecia,"time");
-				setInterval(function() {
+				/*setInterval(function() {
 					pojecia = sortujPojecia(pojecia,"time");
 					store();
-				},60*1000)
+				},60*1000)*/
 				nastepna();
 
 				$("#tytul").text(zestaw.nazwa)
