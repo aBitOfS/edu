@@ -15,41 +15,27 @@
 			var pojecie, nazwaZestawu, zestaw, strona, szablon, element;
 
 			function odloz(ileMinut) {
-				let nast = dalej(zestaw,szablon,pojecie,ileMinut);
+				let nast = dalej(zestaw,szablon[$(zaczOdDr).prop("checked") ? 1 : 0],pojecie,ileMinut);
 				if (nast) 
 					nastepna(nast);
-				/*else
+				/*else 
 					alert("Wystąpił nieoczekiwany błąd")*/
 			}
 			function nastepna(nast) {
 				[pojecie, element] = nast;
-	
-				strona = $(zaczOdDr).prop("checked") ? 1 : 0;
+
+				$(".pojecie").text(element[0]);
 				
-				$("#fiszka > span").text(element[strona])
-				$("#fiszka").removeClass("drugaStrona");
+				$("#pyt").removeClass("ukryj");
+				$("#ocen").addClass("ukryj");
+				
+				$("#odp").focus();
 			}
-			function start() {
-				// Wczytywanie
-				zestaw = JSON.parse(zestaw);
-				
-				if (zestaw.fiszki)
-					szablon = zestaw.fiszki;
-				else {
-					alert("Wybrany zestaw nie wspiera fiszek");
-					history.back();
-				}
-				
-				// Zawartość + akcje
-				$("#tytul").text(zestaw.nazwa)
-				
-				$("#odwroc").click(function() {
-					strona = (strona+1) % element.length;
-					$("#fiszka > span").text(element[strona])
-					$("#fiszka").toggleClass("drugaStrona");
-				})
-				
-				$("#znam").click(function() {
+			function sprawdz() {
+				let odp = $("#odp").val();
+				$("#odp").val("");
+
+				if (odp == element[1]) {
 					let dzien = 24*60
 					if (!pojecie.umiej) {
 						pojecie.umiej = 1;
@@ -67,12 +53,51 @@
 							default: odloz(); break;
 						}
 					}
-				})
+				}
+				else {
+					$("#odpowiedz").text(element[1]);
+					$("#twojaOdp").text(odp);
+					
+					$("#popraw").removeClass("ukryj");
+					$("#pyt").addClass("ukryj");
+					
+					$("#przepisz").focus();
+				}
+			}
+			function pomin() {
+				$("#przepisz").val("");
+				$("#popraw").addClass("ukryj");
+				$("#ocen").removeClass("ukryj");
+			}
+			function start() {
+				// Wczytywanie
+				zestaw = JSON.parse(zestaw);
+				
+				if (zestaw.pisanie)
+					szablon = zestaw.pisanie;
+				else {
+					alert("Wybrany zestaw nie wspiera pisania");
+					history.back();
+				}
+				
+				// Zawartość + akcje
+				$("#tytul").text(zestaw.nazwa)
+
+				$("#odp").on('keypress',function(e) {
+					if(e.which == 13) {
+						sprawdz();
+					}
+				});
+				$("#przepisz").on('keypress',function(e) {
+					if ($("#przepisz").val()+e.key == element[1]) 
+						pomin();
+				});
+
 				$("#prawie").click(function() { odloz(10); });
 				$("#powtorze").click(function() { odloz(5); });
 				$("#nieznam").click(function() { odloz(1); });
 				
-				nastepna(dalej(zestaw, szablon));
+				nastepna(dalej(zestaw, szablon[0]));
 			}
 
 			$(document).ready(function() {
@@ -95,17 +120,25 @@
 		<main>
 			<a href="index.html"><button>Back</button></a> <h1 id="tytul"></h1>
 			<label id="zaczOdDrContainer">Zacznij od drugiej strony<input id="zaczOdDr" type="checkbox"/></label>
-			<div id="fiszkiPoj">
-				<div id="fiszka">
-					<span>brak pojęć</span>
-				</div>
+			<div id="pyt">
+				<h2 class="pojecie">Brak pojęć</h2>
+				<label>Odpowiedź:<input id="odp"></label>
+				<button onclick="sprawdz()">Sprawdź</button>
 			</div>
-			<div class="center"><button id="odwroc">odwróć</button></div>
-			<div class="buttonsInRow center">
-				<button id="znam">Znam!</button>
-				<button id="prawie">Już prawie</button>
-				<button id="powtorze">Lepiej powtórzę</button>
-				<button id="nieznam">W ogóle nie łapię</button>
+			<div id="popraw" class="ukryj">
+				<h2 class="pojecie">Brak pojęć</h2>
+				<p>Twoja odpowiedź: <span id="twojaOdp"></span></p>
+				<h3 id="odpowiedz">Brak poprawnej odpowiedzi</h3>
+				<label>Przepisz odpowiedź:<input id="przepisz"></label>
+				<button onclick="pomin()">Pomiń</button>
+			</div>
+			<div id="ocen" class="ukryj">
+				<h2>Jak to umiesz?</h2>
+				<div class="buttonsInRow center">
+					<button id="prawie">Już prawie</button>
+					<button id="powtorze">Lepiej powtórzę</button>
+					<button id="nieznam">W ogóle nie łapię</button>
+				</div>
 			</div>
 		</main>
 	</body>

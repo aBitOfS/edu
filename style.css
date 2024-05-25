@@ -103,6 +103,10 @@ header > label {
 .katdie { color: red; }
 .katdas { color: green; }
 
+.comment {
+	color: var(--customColor2);
+}
+
 /* fiszki */
 #fiszkiPoj {
 	display: flex;
@@ -137,6 +141,9 @@ header > label {
 .center {
 	display: flex;
 	justify-content: center;
+}
+.ukryj, .ukryj * {
+	display: none;
 }
 #odwroc {
 	margin: -80px 0px 20px 0px;

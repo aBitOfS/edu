@@ -1,18 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var Index = /** @class */ (function () {
     function Index() {
         var _a, _b, _c;
@@ -51,7 +36,8 @@ var Index = /** @class */ (function () {
                     localStorage.setItem(this.wyborZestawu.value, JSON.stringify(this.zestaw));
                 }
                 localStorage.setItem("zestaw", this.wyborZestawu.value);
-                doZmiana(sortujPojecia(this.zestaw.pojecia, this.wyborSortowania.value));
+                //this.zestaw.pojecia = sortuj(this.zestaw.pojecia,this.wyborSortowania.value)
+                doZmiana(this.zestaw);
                 return;
             }
         }
@@ -60,7 +46,6 @@ var Index = /** @class */ (function () {
     Index.prototype.zerujPostep = function () {
         if (confirm("Czy na pewno chcesz wyzerować postęp?")) {
             localStorage.removeItem(this.zestaw.id);
-            localStorage.removeItem("zestawy");
             this.wczytajZestawy();
         }
     };
@@ -71,137 +56,50 @@ var Zestaw = /** @class */ (function () {
     }
     return Zestaw;
 }());
-var Slow = /** @class */ (function () {
-    function Slow(odpowiedz, definicja) {
-        this.war1 = odpowiedz;
-        this.war2 = definicja;
-        if (this.war1.slice(0, 4) === "der ")
-            this.kat = "der";
-        if (this.war1.slice(0, 4) === "die ")
-            this.kat = "die";
-        if (this.war1.slice(0, 4) === "das ")
-            this.kat = "das";
-    }
-    return Slow;
-}());
-var NiemieckiUbrania = /** @class */ (function (_super) {
-    __extends(NiemieckiUbrania, _super);
-    function NiemieckiUbrania() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.nazwa = "Niemiecki Ubrania";
-        _this.id = "niemUbr";
-        _this.pojecia = [new Slow("der Anzug", "garnitur"), new Slow("das Armband", "branzoletka"), new Slow("die Armbanduhr", "zegarek"), new Slow("die Bluse", "bluzka"),
-            new Slow("das Deodorant", "dezodorant"), new Slow("der/das Puder", "puder"), new Slow("der/das Sakko", "marynarka"), new Slow("der Gürtel", "pasek"),
-            new Slow("die Gürteltasche", 'Torba "nerka"'), new Slow("die Haarbürste", "szczotka do włosów"), new Slow("die Halskette", "łańcuszek"), new Slow("das Halstuch", "apaszka"),
-            new Slow("die Handcreme", "krem do rąk"), new Slow("die Handyhülle", "osłona na telefon"), new Slow("das Hemd", "koszula"), new Slow("die Hose", "spodnie"),
-            new Slow("der Hut", "kapelusz"), new Slow("die Jacke", "kurtka"), new Slow("das Kleid", "sukienka"), new Slow("die Kleidung", "ubranie"),
-            new Slow("die Kniestrümpfe", "podkolanówki"), new Slow("der Kopfhörer", "słuchawka"), new Slow("die Kopfhörer", "słuchawki"), new Slow("die Kosmetika", "kosmetyki"),
-            new Slow("die Krawatte", "krawat"), new Slow("die Lederjacke", "kurtka skórzana"), new Slow("der Lippenbalsam", "balsam do ust"), new Slow("der Lippenstift", "pomadka do ust"),
-            new Slow("die Lunchbox", "pudełko na drugie śniadanie"), new Slow("der Mantel", "płaszcz"), new Slow("die Mütze", "czapka"), new Slow("der Notizblock", "Blok do notatek"),
-            new Slow("die Ohrringe", "kolczyki"), new Slow("das Parfüm", "perfumy"), new Slow("der Pullover", "sweter"), new Slow("der Ring", "pierścionek"),
-            new Slow("der Rock", "spódnica"), new Slow("der Rucksack", "plecak"), new Slow("der Schmuck", "biżuteria"), new Slow("die Schuhe", "buty"),
-            new Slow("der Schülerkalender", "kalendarz szkolny"), new Slow("der Schulrucksack", "plecak szkolny"), new Slow("die Schultasche", "torba do szkoły"), new Slow("die Sneakers", "trampki"),
-            new Slow("die Socken", "skarpetki"), new Slow("die Strumpfhose", "rajstopy"), new Slow("das Sweatshirt", "bluza"), new Slow("die Trinkflasche", "bidon"),
-            new Slow("der Turnbeutel", "worek na strój gimnastyczny"), new Slow("der USB-Stick", "pendrive"), new Slow("die Weste", "kamizelka") /*,
-            new Slow("",""), new Slow("",""),new Slow("", ""),new Slow("","")*/
-        ];
-        _this.slownik = new URL("https://www.diki.pl/slownik-niemieckiego");
-        return _this;
-    }
-    return NiemieckiUbrania;
-}(Zestaw));
-var MapP = /** @class */ (function () {
-    function MapP() {
-    }
-    return MapP;
-}());
-var ParkiNarodowe = /** @class */ (function (_super) {
-    __extends(ParkiNarodowe, _super);
-    function ParkiNarodowe() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.id = "parkNar";
-        _this.nazwa = "Parki Narodowe";
-        _this.pojecia = [new Slow("Słowiński PN", "Pomorskie")];
-        return _this;
-    }
-    return ParkiNarodowe;
-}(Zestaw));
-var index;
-function startIndex() {
-    index = new Index();
-}
 function sortujPojecia(pojecia, typ) {
+    console.log("OLD sortujPojecia");
     var sP = pojecia.slice();
-    var repetitionLimit = Date.now();
-    function rand() {
-        return Math.random() < 0.5 ? -1 : 1;
-    }
-    function alf(a, b) {
-        {
-            var an = a.war1, bn = b.war1;
-            if (a.kat) // && a.kat in ["der","die","das"]
-                an = a.war1.slice(4);
-            if (b.kat) // && b.kat in ["der","die","das"]
-                bn = b.war1.slice(4);
-            if (an.toLowerCase() > bn.toLowerCase())
-                return 1;
-            else if (bn.toLowerCase() > an.toLowerCase())
-                return -1;
-            else
-                return 0;
-        }
-    }
-    function rodz(a, b) {
-        if (a.kat && (!b.kat || a.kat > b.kat))
-            return 1;
-        else if (b.kat && (!a.kat || b.kat > a.kat))
-            return -1;
-        else
-            return alf(a, b);
-    }
-    function time(a, b) {
-        var _a, _b;
-        var at = (_a = a.time) !== null && _a !== void 0 ? _a : repetitionLimit;
-        var bt = (_b = b.time) !== null && _b !== void 0 ? _b : repetitionLimit;
-        if (at > bt)
-            return 1;
-        else if (bt > at)
-            return -1;
-        else
-            return rand();
-    }
-    function umiej(a, b) {
-        var _a, _b;
-        var at = (_a = a.time) !== null && _a !== void 0 ? _a : repetitionLimit;
-        var bt = (_b = b.time) !== null && _b !== void 0 ? _b : repetitionLimit;
-        if (at > bt)
-            return 1;
-        else if (bt > at)
-            return -1;
-        else
-            return alf(a, b);
-    }
-    if (typ === "alf")
-        sP.sort(alf);
-    else if (typ === "rodz")
-        sP.sort(rodz);
-    else if (typ === "time")
-        sP.sort(time);
-    else if (typ === "umiej")
-        sP.sort(umiej);
     return sP;
-    /*if (typ === "alf") {
-        sP.sort((a:Pytanie,b:Pytanie) => {
-            let an = a.war1, bn = b.war1;
-            if (a.kat) // && a.kat in ["der","die","das"]
-                an = a.war1.slice(4);
-            if (b.kat) // && b.kat in ["der","die","das"]
-                bn = b.war1.slice(4);
-            if (an.toLowerCase() > bn.toLowerCase()) return 1;
-            else if (bn.toLowerCase() > an.toLowerCase()) return -1;
-            else return 0;
-        })
-    }*/
+    /*let repetitionLimit = Date.now();
+
+    function rand() {
+        return Math.random() < 0.5 ? -1 : 1
+    }
+    function alf(a:Pytanie,b:Pytanie) {{
+        let an = a.war1, bn = b.war1;
+        if (a.kat) // && a.kat in ["der","die","das"]
+            an = a.war1.slice(4);
+        if (b.kat) // && b.kat in ["der","die","das"]
+            bn = b.war1.slice(4);
+        if (an.toLowerCase() > bn.toLowerCase()) return 1;
+        else if (bn.toLowerCase() > an.toLowerCase()) return -1;
+        else return 0;
+    }
+    }
+    function rodz(a:Pytanie,b:Pytanie) {
+        if (a.kat && (!b.kat || a.kat > b.kat)) return 1;
+        else if (b.kat && (!a.kat || b.kat > a.kat)) return -1;
+        else return alf(a,b);
+    }
+    function time(a:Pytanie,b:Pytanie) {
+        let at = a.time ?? repetitionLimit;
+        let bt = b.time ?? repetitionLimit;
+        if (at > bt) return 1;
+        else if (bt > at) return -1;
+        else return rand();
+    }
+    function umiej(a:Pytanie,b:Pytanie) {
+        let at = a.time ?? repetitionLimit;
+        let bt = b.time ?? repetitionLimit;
+        if (at > bt) return 1;
+        else if (bt > at) return -1;
+        else return alf(a,b);
+    }
+    if (typ === "alf") sP.sort(alf);
+    else if (typ === "rodz") sP.sort(rodz);
+    else if (typ === "time") sP.sort(time);
+    else if (typ === "umiej") sP.sort(umiej);
+    return sP;*/
 }
 function czasNaTekst(czas) {
     czas = Math.floor(czas / 60000); // minuty
@@ -220,3 +118,95 @@ function czasNaTekst(czas) {
         return "".concat(czas, " ").concat(czas == 1 ? "dzień" : "dni");
     }
 }
+function aplikujSzablon(szablon, wartosci) {
+    var wyn = [], frag, czy, str;
+    for (var _i = 0, szablon_1 = szablon; _i < szablon_1.length; _i++) {
+        var el = szablon_1[_i];
+        czy = el.indexOf("?") == 0;
+        if (czy)
+            frag = el.slice(1).split("^");
+        else
+            frag = el.split("^");
+        str = frag[0];
+        for (var i = 1; i < frag.length; i += 2) {
+            // if (frag[i].startsWith("?"))
+            str += wartosci[frag[i]] + frag[i + 1];
+        }
+        if (str.indexOf("undefined") == -1) // !czy || 
+            wyn.push(str);
+    }
+    return wyn;
+}
+function sortuj(pojecia) {
+    var poCzym = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        poCzym[_i - 1] = arguments[_i];
+    }
+    var repetitionLimit = Date.now();
+    pojecia.sort(function (a, b) {
+        var _a, _b;
+        var ae, be, odw = false;
+        for (var _i = 0, poCzym_1 = poCzym; _i < poCzym_1.length; _i++) {
+            var el = poCzym_1[_i];
+            // Gdy losowe
+            if (el == "rand")
+                return Math.random() < 0.5 ? -1 : 1;
+            else if (el == "time") {
+                var at = (_a = a.time) !== null && _a !== void 0 ? _a : repetitionLimit;
+                var bt = (_b = b.time) !== null && _b !== void 0 ? _b : repetitionLimit;
+                if (at > bt)
+                    return 1;
+                else if (bt > at)
+                    return -1;
+            }
+            // Odwrócenie
+            odw = el.indexOf("^") == 0;
+            if (odw)
+                el = el.slice(1);
+            ae = a[el];
+            be = b[el];
+            // Niewrażliwe na wielkość liter
+            if (typeof ae == "string" && typeof be == "string") {
+                ae = ae.toLowerCase();
+                be = be.toLowerCase();
+            }
+            if (ae && (!be || (!odw && ae < be) || (odw && ae > be)))
+                return -1;
+            else if (be && (!ae || (!odw && ae > be) || (odw && ae < be)))
+                return 1;
+        }
+        return 0;
+    });
+    return pojecia;
+}
+function dalej(zestaw, szablon, poprzednie, ileMinut) {
+    var _a;
+    if (poprzednie) {
+        if (ileMinut) {
+            // Odkładanie
+            poprzednie.time = (Date.now() + 60000 * ileMinut);
+            console.log("powt\u00F3rz\u0119 za ".concat(czasNaTekst(60000 * ileMinut)));
+        }
+        zestaw.pojecia.push(poprzednie);
+        sortuj(zestaw.pojecia, "time", "rand"); // Można zastąpić czymś efektywniejszym (nie trzeba sortować całości)
+        // Zapisywanie
+        localStorage.setItem(zestaw.id, JSON.stringify(zestaw));
+    }
+    else
+        sortuj(zestaw.pojecia, "time", "rand");
+    if (zestaw.pojecia.length == 0) {
+        alert("Wybrany zestaw nie posiada fiszek");
+        window.history.back();
+        return;
+    }
+    var pojecie = (_a = zestaw.pojecia.shift()) !== null && _a !== void 0 ? _a : {};
+    if (pojecie.time && pojecie.time > Date.now() + 60000) {
+        alert("Dobra robota! Ukończyłeś na teraz wróć za " + czasNaTekst(pojecie.time - Date.now()));
+        window.history.back();
+        return;
+    }
+    var element = aplikujSzablon(szablon, pojecie);
+    console.log(element[0]);
+    return [pojecie, element];
+}
+// localStorage.setItem("zestawy",JSON.stringify(zestawy));

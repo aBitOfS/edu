@@ -1,5 +1,5 @@
 [
-	{"id":"niemUbr","nazwa":"Niemiecki Ubrania","pojecia":[{"war1":"der Anzug","war2":"garnitur","kat":"der"},{"war1":"das Armband","war2":"branzoletka","kat":"das"},
+	{"id":"niemUbr","nazwa":"Niemiecki - Ubrania","pojecia":[{"war1":"der Anzug","war2":"garnitur","kat":"der"},{"war1":"das Armband","war2":"branzoletka","kat":"das"},
 	{"war1":"die Armbanduhr","war2":"zegarek","kat":"die"},{"war1":"die Bluse","war2":"bluzka","kat":"die"},{"war1":"das Deodorant","war2":"dezodorant","kat":"das"},
 	{"war1":"der/das Puder","war2":"puder"},{"war1":"der/das Sakko","war2":"marynarka"},{"war1":"der Gürtel","war2":"pasek","kat":"der"},{"war1":"die Gürteltasche",
 	"war2":"Torba \"nerka\"","kat":"die"},{"war1":"die Haarbürste","war2":"szczotka do włosów","kat":"die"},{"war1":"die Halskette","war2":"łańcuszek","kat":"die"},
@@ -17,9 +17,9 @@
 	{"war1":"die Schultasche","war2":"torba do szkoły","kat":"die"},{"war1":"die Sneakers","war2":"trampki","kat":"die"},{"war1":"die Socken","war2":"skarpetki","kat":"die"},
 	{"war1":"die Strumpfhose","war2":"rajstopy","kat":"die"},{"war1":"das Sweatshirt","war2":"bluza","kat":"das"},{"war1":"die Trinkflasche","war2":"bidon","kat":"die"},
 	{"war1":"der Turnbeutel","war2":"worek na strój gimnastyczny","kat":"der"},{"war1":"der USB-Stick","war2":"pendrive","kat":"der"},{"war1":"die Weste","war2":"kamizelka","kat":"die"}],
-	"slownik":"https://www.diki.pl/slownik-niemieckiego"},
+	"slownik":"https://www.diki.pl/slownik-niemieckiego","list":["^war2^","^war1^"],"fiszki":["^war2^","^war1^"]},
 	{
-		"id":"niemOpisUbr","nazwa":"Niemiecki opis ubrań",
+		"id":"niemOpisUbr","nazwa":"Niemiecki - Opis ubrań",
 		"pojecia":[
 			{"war1":"ausgefallen","war2":"ekstrawagancki"},
 			{"war1":"bequem","war2":"wygodny"},
@@ -34,12 +34,60 @@
 			{"war1":"lang","war2":"długi"},
 			{"war1":"eng","war2":"wąski"},
 			{"war1":"weit","war2":"szeroki"}],
-		"slownik":"https://www.diki.pl/slownik-niemieckiego"
+		"slownik":"https://www.diki.pl/slownik-niemieckiego",
+		"list":["^war1^","^war2^"],"fiszki":["^war2^","^war1^"],
+		"sort":[["war1","Niemiecki"],["war2","Polski"]]
 	},
 	{
-		"id":"niemKol","nazwa":"Niemiecki kolory",
+		"id":"geoParkNar","nazwa":"Geografia - Parki Narodowe",
 		"pojecia":[
-			{"war1":"gelb","war2":"żółty"}
-		]
+			{"naz":"Babiogórski",	"woj":"małopolskie",	"sym":"okrzyn jeleni"},
+			{"naz":"Białowieski",	"woj":"podlaskie",		"sym":"żubr europejski"},
+			{"naz":"Biebrzański",	"woj":"podlaskie",		"sym":"batalion"},
+			{"naz":"Bieszczadzki",	"woj":"podkarpackie",	"sym":"ryś",					"elm":"Połoniny"},
+			{"naz":"Bory Tucholskie","woj":"pomorskie",		"sym":"głuszec"},
+			{"naz":"Drawieński",	"woj":"lubuskie, wielkopolskie i zachodniopomorskie",	"sym":"wydra"},
+			{"naz":"Gorczański",	"woj":"małopolskie",	"sym":"salamandra plamista"},
+			{"naz":"Gór Stołowych",	"woj":"dolnośląskie",	"sym":"Szczeliniec Wielki"},
+			{"naz":"Kampinoski",	"woj":"mazowieckie",	"sym":"łoś",					"elm":"wydmy śródlądowe"},
+			{"naz":"Karkonoski",	"woj":"dolnośląskie",	"sym":"dzwonek karkonoski i goryczka trojeściowa"},
+			{"naz":"Magurski",		"woj":"małopolskie i podkarpackie","sym":"orlik krzykliwy"},
+			{"naz":"Narwiański",	"woj":"podlaskie",		"sym":"błotniak stawowy"},
+			{"naz":"Ojcowski",		"woj":"małopolskie",	"sym":"nietoperz",				"elm":"Ostańce krasowe i maczuga Herkulesa"},
+			{"naz":"Pieniński",		"woj":"małopolskie",	"sym":"Trzy Korony"},
+			{"naz":"Poleski",		"woj":"lubelskie",		"sym":"żuraw"},
+			{"naz":"Roztoczański",	"woj":"lubelskie",		"sym":"konik polski"},
+			{"naz":"Słowiński",		"woj":"pomorskie",		"sym":"mewa",					"elm":"wydmy nadmorskie"},
+			{"naz":"Świętokrzyski",	"woj":"świętokrzyskie",	"sym":"jeleń",					"elm":"Gołoborza"},
+			{"naz":"Tatrzański",	"woj":"małopolskie",	"sym":"kozica tatrzańska"},
+			{"naz":"Ujście Warty",	"woj":"lubuskie",		"sym":"gęś tundrowa"},
+			{"naz":"Wielkopolski",	"woj":"wielkopolskie",	"sym":"puszczyk"},
+			{"naz":"Wigierski",		"woj":"podlaskie",		"sym":"bóbr i jezioro Wigry"},
+			{"naz":"Woliński",		"woj":"zachodniopomorskie",	"sym":"bielik",				"elm":"najwyższy klif"}
+		], "list":["^naz^ PN","^woj^, ^sym^","^elm^"], "list^": ["Nazwa","Położenie i symbol","Charakterystyczne"],
+		"fiszki":["^naz^ PN","^woj^, ^sym^","?^elm^"], "fiszki^": ["Nazwa","Położenie i symbol","Charakterystyczne"],
+		"sort":[["naz","Nazwa"],["woj","Województwo"],["sym","Symbol"],["elm","Charakterystyczne"]]
+	},
+	{
+		"id":"niemSzykZdan", "nazwa":"Niemiecki - Szyki zdań",
+		"pojecia":[
+			{"niem":"aber","pl":"ale","szyk":"prosty"},
+			{"niem":"oder","pl":"albo","szyk":"prosty"},
+			{"niem":"und","pl":"i, a","szyk":"prosty"},
+			{"niem":"sondern","pl":"lecz","szyk":"prosty"},
+			{"niem":"denn","pl":"ponieważ (nie w-)","szyk":"prosty"},
+			{"niem":"dann","pl":"potem","szyk":"przestawny"},
+			{"niem":"sonst","pl":"w przeciwnym razie","szyk":"przestawny"},
+			{"niem":"auBerdem","pl":"ponadto","szyk":"przestawny"},
+			{"niem":"trotzdem","pl":"mimo to","szyk":"przestawny"},
+			{"niem":"deshalb/deswegen/darum","pl":"dlatego","szyk":"przestawny"},
+			{"niem":"weil","pl":"ponieważ (nie d-)","szyk":"zdania pobocznego/końcowy"},
+			{"niem":"dass","pl":"że","szyk":"zdania pobocznego/końcowy"},
+			{"niem":"ob","pl":"czy","szyk":"zdania pobocznego/końcowy"},
+			{"niem":"wie/wo/was","pl":"zaimki pytające","szyk":"zdania pobocznego/końcowy"}
+		], "list":["^niem^","^pl^","^szyk^"],"list^":["Niemiecki","Polski","Szyk zdania"],
+		"fiszki":["^pl^","^niem^","^szyk^"], "fiszki^":["Polski","Niemiecki","Szyk zdania"],
+		"sort":[["niem","Niemiecki"],["pl","Polski"],["szyk","Szyk zdania"]],
+		"pisanie":[["^pl^","^niem^"],["^niem^","^pl^"]]
 	}
 ]
