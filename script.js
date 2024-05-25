@@ -4,12 +4,12 @@ var Index = /** @class */ (function () {
         this.wyborZestawu = (_a = document.getElementById("wyborZestawu")) !== null && _a !== void 0 ? _a : document.createElement("select");
         this.listaPojec = (_b = document.getElementById("listaPojec")) !== null && _b !== void 0 ? _b : document.createElement("div");
         this.wyborSortowania = (_c = document.getElementById("wyborSortowania")) !== null && _c !== void 0 ? _c : document.createElement("select");
-        this.wczytajZestawy();
+        wczytajJSON();
     }
-    Index.prototype.wczytajZestawy = function () {
+    Index.prototype.wczytajZestawy = function (zestawy) {
         var _a;
         // Wczytywanie listy wszystkich zestawów
-        this.zestawy = wczytajJSON();
+        this.zestawy = zestawy;
         // Zapisane tylko lokalnie
         var zestawyStr = localStorage.getItem("zestawy");
         if (zestawyStr && zestawyStr != "undefined")
@@ -46,7 +46,7 @@ var Index = /** @class */ (function () {
     Index.prototype.zerujPostep = function () {
         if (confirm("Czy na pewno chcesz wyzerować postęp?")) {
             localStorage.removeItem(this.zestaw.id);
-            this.wczytajZestawy();
+            this.wczytajZestawy(this.zestawy);
         }
     };
     return Index;

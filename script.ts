@@ -1,6 +1,6 @@
 declare function doZapisz(zestawy: Zestaw[]): void;
 declare function doZmiana(zestaw: Zestaw): void;
-declare function wczytajJSON(): Zestaw[];
+declare function wczytajJSON();
 declare function wyswietlZestaw(zestaw : Zestaw);
 
 class Index {
@@ -13,11 +13,11 @@ class Index {
 		this.wyborZestawu = document.getElementById("wyborZestawu") as HTMLSelectElement ?? document.createElement("select");
 		this.listaPojec = document.getElementById("listaPojec") ?? document.createElement("div");
 		this.wyborSortowania = document.getElementById("wyborSortowania") as HTMLSelectElement ?? document.createElement("select");
-		this.wczytajZestawy();
+		wczytajJSON();
 	}
-	wczytajZestawy() {
+	wczytajZestawy(zestawy: Zestaw[]) {
 		// Wczytywanie listy wszystkich zestawów
-		this.zestawy = wczytajJSON();
+		this.zestawy = zestawy;
 			// Zapisane tylko lokalnie
 		let zestawyStr = localStorage.getItem("zestawy");
 		if (zestawyStr && zestawyStr != "undefined")
@@ -52,7 +52,7 @@ class Index {
 	zerujPostep() {
 		if (confirm("Czy na pewno chcesz wyzerować postęp?")) {
 			localStorage.removeItem(this.zestaw.id);
-			this.wczytajZestawy();
+			this.wczytajZestawy(this.zestawy);
 		}
 	}
 }

@@ -15,9 +15,8 @@
 			function wczytajJSON() {
 				$.getJSON("zestawy.json",(zestawy) => {
 					if (zestawy && zestawy != "undefined")
-						return zestawy;
+						index.wczytajZestawy(zestawy)
 				})
-				return [];
 			}
 			function doZapisz(zestawy) {
 				console.log("doZapisz")
