@@ -1,4 +1,59 @@
 [
+	{
+		"id":"angPersonalityWords", "nazwa":"Angielski - Personality",
+		"pojecia":[
+			{"e":"resourceful","p":"pomysłowy"},
+			{"e":"thorough","p":"dokładny"},
+			{"e":"self-sufficient","p":"samowystarczalny"},
+			{"e":"straightforward","p":"bezpośredni"},
+			{"e":"sympathetic","p":"współczujący"},
+
+			{"e":"a heart of gold","p":"złote serce"},
+			{"e":"down to earth","p":"przyziemny, praktyczny"},
+			{"e":"a cold fish","p":"nieczuły"},
+			{"e":"a real pain in the neck","p":"bardzo denerwujący"},
+			{"e":"a soft touch","p":"łatwowierny"},
+			{"e":"a very quick temper","p":"nerwowy"},
+			{"e":"full of oneself","p":"zarozumiały"},
+			{"e":"wouldn't hurt a fly","p":"nie zabiłby muchy"},
+			{"e":"lift a finger","p":"kiwnąć palcem"},
+			{"e":"the life and soul of the party","p":"dusza towarzystwa"}
+		], "list":["^e^","^p^"], "list^":["Angielski","Polski"],
+		"fiszki":["^e^","^p^"], "fiszki^":["Angielski","Polski"],
+		"sort":[["e","Angielski"],["p","Polski"]],
+		"pisanie":[["^e^","^p^"],["^p^","^e^"]]
+	},
+	{
+		"id":"geoParkNar","nazwa":"Geografia - Parki Narodowe",
+		"pojecia":[
+			{"naz":"Babiogórski",	"woj":"małopolskie",	"sym":"okrzyn jeleni"},
+			{"naz":"Białowieski",	"woj":"podlaskie",		"sym":"żubr europejski"},
+			{"naz":"Biebrzański",	"woj":"podlaskie",		"sym":"batalion"},
+			{"naz":"Bieszczadzki",	"woj":"podkarpackie",	"sym":"ryś",					"elm":"Połoniny"},
+			{"naz":"Bory Tucholskie","woj":"pomorskie",		"sym":"głuszec"},
+			{"naz":"Drawieński",	"woj":"lubuskie, wielkopolskie i zachodniopomorskie",	"sym":"wydra"},
+			{"naz":"Gorczański",	"woj":"małopolskie",	"sym":"salamandra plamista"},
+			{"naz":"Gór Stołowych",	"woj":"dolnośląskie",	"sym":"Szczeliniec Wielki"},
+			{"naz":"Kampinoski",	"woj":"mazowieckie",	"sym":"łoś",					"elm":"wydmy śródlądowe"},
+			{"naz":"Karkonoski",	"woj":"dolnośląskie",	"sym":"dzwonek karkonoski i goryczka trojeściowa"},
+			{"naz":"Magurski",		"woj":"małopolskie i podkarpackie","sym":"orlik krzykliwy"},
+			{"naz":"Narwiański",	"woj":"podlaskie",		"sym":"błotniak stawowy"},
+			{"naz":"Ojcowski",		"woj":"małopolskie",	"sym":"nietoperz",				"elm":"Ostańce krasowe i maczuga Herkulesa"},
+			{"naz":"Pieniński",		"woj":"małopolskie",	"sym":"Trzy Korony"},
+			{"naz":"Poleski",		"woj":"lubelskie",		"sym":"żuraw"},
+			{"naz":"Roztoczański",	"woj":"lubelskie",		"sym":"konik polski"},
+			{"naz":"Słowiński",		"woj":"pomorskie",		"sym":"mewa",					"elm":"wydmy nadmorskie"},
+			{"naz":"Świętokrzyski",	"woj":"świętokrzyskie",	"sym":"jeleń",					"elm":"Gołoborza"},
+			{"naz":"Tatrzański",	"woj":"małopolskie",	"sym":"kozica tatrzańska"},
+			{"naz":"Ujście Warty",	"woj":"lubuskie",		"sym":"gęś tundrowa"},
+			{"naz":"Wielkopolski",	"woj":"wielkopolskie",	"sym":"puszczyk"},
+			{"naz":"Wigierski",		"woj":"podlaskie",		"sym":"bóbr i jezioro Wigry"},
+			{"naz":"Woliński",		"woj":"zachodniopomorskie",	"sym":"bielik",				"elm":"najwyższy klif"}
+		], "list":["^naz^ PN","^woj^","^sym^","^elm^"], "list^": ["Nazwa","Położenie","symbol","Charakterystyczne"],
+		"fiszki":["^naz^ PN","^woj^, ^sym^","?^elm^"], "fiszki^": ["Nazwa","Położenie i symbol","Charakterystyczne"],
+		"sort":[["naz","Nazwa"],["woj","Województwo"],["sym","Symbol"],["elm","Charakterystyczne"]],
+		"pisanie":[["^naz^ PN","^woj^"],["^naz^ PN","^sym^"]]
+	},
 	{"id":"niemUbr","nazwa":"Niemiecki - Ubrania","pojecia":[{"war1":"der Anzug","war2":"garnitur","kat":"der"},{"war1":"das Armband","war2":"branzoletka","kat":"das"},
 	{"war1":"die Armbanduhr","war2":"zegarek","kat":"die"},{"war1":"die Bluse","war2":"bluzka","kat":"die"},{"war1":"das Deodorant","war2":"dezodorant","kat":"das"},
 	{"war1":"der/das Puder","war2":"puder"},{"war1":"der/das Sakko","war2":"marynarka"},{"war1":"der Gürtel","war2":"pasek","kat":"der"},{"war1":"die Gürteltasche",
@@ -40,37 +95,6 @@
 		"pisanie":[["^war2^","^war1^"],["^war1^","^war2^"]]
 	},
 	{
-		"id":"geoParkNar","nazwa":"Geografia - Parki Narodowe",
-		"pojecia":[
-			{"naz":"Babiogórski",	"woj":"małopolskie",	"sym":"okrzyn jeleni"},
-			{"naz":"Białowieski",	"woj":"podlaskie",		"sym":"żubr europejski"},
-			{"naz":"Biebrzański",	"woj":"podlaskie",		"sym":"batalion"},
-			{"naz":"Bieszczadzki",	"woj":"podkarpackie",	"sym":"ryś",					"elm":"Połoniny"},
-			{"naz":"Bory Tucholskie","woj":"pomorskie",		"sym":"głuszec"},
-			{"naz":"Drawieński",	"woj":"lubuskie, wielkopolskie i zachodniopomorskie",	"sym":"wydra"},
-			{"naz":"Gorczański",	"woj":"małopolskie",	"sym":"salamandra plamista"},
-			{"naz":"Gór Stołowych",	"woj":"dolnośląskie",	"sym":"Szczeliniec Wielki"},
-			{"naz":"Kampinoski",	"woj":"mazowieckie",	"sym":"łoś",					"elm":"wydmy śródlądowe"},
-			{"naz":"Karkonoski",	"woj":"dolnośląskie",	"sym":"dzwonek karkonoski i goryczka trojeściowa"},
-			{"naz":"Magurski",		"woj":"małopolskie i podkarpackie","sym":"orlik krzykliwy"},
-			{"naz":"Narwiański",	"woj":"podlaskie",		"sym":"błotniak stawowy"},
-			{"naz":"Ojcowski",		"woj":"małopolskie",	"sym":"nietoperz",				"elm":"Ostańce krasowe i maczuga Herkulesa"},
-			{"naz":"Pieniński",		"woj":"małopolskie",	"sym":"Trzy Korony"},
-			{"naz":"Poleski",		"woj":"lubelskie",		"sym":"żuraw"},
-			{"naz":"Roztoczański",	"woj":"lubelskie",		"sym":"konik polski"},
-			{"naz":"Słowiński",		"woj":"pomorskie",		"sym":"mewa",					"elm":"wydmy nadmorskie"},
-			{"naz":"Świętokrzyski",	"woj":"świętokrzyskie",	"sym":"jeleń",					"elm":"Gołoborza"},
-			{"naz":"Tatrzański",	"woj":"małopolskie",	"sym":"kozica tatrzańska"},
-			{"naz":"Ujście Warty",	"woj":"lubuskie",		"sym":"gęś tundrowa"},
-			{"naz":"Wielkopolski",	"woj":"wielkopolskie",	"sym":"puszczyk"},
-			{"naz":"Wigierski",		"woj":"podlaskie",		"sym":"bóbr i jezioro Wigry"},
-			{"naz":"Woliński",		"woj":"zachodniopomorskie",	"sym":"bielik",				"elm":"najwyższy klif"}
-		], "list":["^naz^ PN","^woj^","^sym^","^elm^"], "list^": ["Nazwa","Położenie","symbol","Charakterystyczne"],
-		"fiszki":["^naz^ PN","^woj^, ^sym^","?^elm^"], "fiszki^": ["Nazwa","Położenie i symbol","Charakterystyczne"],
-		"sort":[["naz","Nazwa"],["woj","Województwo"],["sym","Symbol"],["elm","Charakterystyczne"]],
-		"pisanie":[["^naz^ PN","^woj^"],["^naz^ PN","^sym^"]]
-	},
-	{
 		"id":"niemSzykZdan", "nazwa":"Niemiecki - Szyki zdań",
 		"pojecia":[
 			{"niem":"aber","pl":"ale","szyk":"prosty"},
@@ -91,30 +115,6 @@
 		"fiszki":["^pl^","^niem^","^szyk^"], "fiszki^":["Polski","Niemiecki","Szyk zdania"],
 		"sort":[["niem","Niemiecki"],["pl","Polski"],["szyk","Szyk zdania"]],
 		"pisanie":[["^pl^","^niem^"],["^niem^","^pl^"]]
-	},
-	{
-		"id":"angPersonalityWords", "nazwa":"Angielski - Personality",
-		"pojecia":[
-			{"e":"resourceful","p":"pomysłowy"},
-			{"e":"thorough","p":"dokładny"},
-			{"e":"self-sufficient","p":"samowystarczalny"},
-			{"e":"straightforward","p":"bezpośredni"},
-			{"e":"sympathetic","p":"współczujący"},
-
-			{"e":"a heart of gold","p":"złote serce"},
-			{"e":"down to earth","p":"przyziemny, praktyczny"},
-			{"e":"a cold fish","p":"nieczuły"},
-			{"e":"a real pain in the neck","p":"bardzo denerwujący"},
-			{"e":"a soft touch","p":"łatwowierny"},
-			{"e":"a very quick temper","p":"nerwowy"},
-			{"e":"full of oneself","p":"zarozumiały"},
-			{"e":"wouldn't hurt a fly","p":"nie zabiłby muchy"},
-			{"e":"lift a finger","p":"kiwnąć palcem"},
-			{"e":"the life and soul of the party","p":"dusza towarzystwa"}
-		], "list":["^e^","^p^"], "list^":["Angielski","Polski"],
-		"fiszki":["^e^","^p^"], "fiszki^":["Angielski","Polski"],
-		"sort":[["e","Angielski"],["p","Polski"]],
-		"pisanie":[["^e^","^p^"],["^p^","^e^"]]
 	},
 	{
 		"id":"niemPartzipPerfekt","nazwa":"Niemiecki - Partzip Perfekt",
@@ -155,7 +155,8 @@
 			{"niem":"werden","odm":"geworden","pol":"stawać się"},
 			{"niem":"schreiben","odm":"geschrieben","pol":"pisać"},
 			{"niem":"helfen","odm":"geholfen","pol":"pomagać"}
-		],"list":["niem","odm","pol"],"list^":["Niemiecki","Partizip Perfekt","Polski"],
-		"fiszki":["niem","odm","pol"],"fiszki^":["Niemiecki","Partizip Perfekt","Polski"],
-		"pisanie":[["pol","niem"],["niem","odm"]]}
+		],"list":["^niem^","^odm^","^pol^"],"list^":["Niemiecki","Partizip Perfekt","Polski"],
+		"fiszki":["^niem^","^odm^","^pol^"],"fiszki^":["Niemiecki","Partizip Perfekt","Polski"],
+		"pisanie":[["^pol^","^niem^"],["^niem^","^odm^"]]
+	}
 ]
