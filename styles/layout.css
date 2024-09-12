@@ -1,0 +1,105 @@
+body > * {
+	padding: 10px;
+}
+.showOnPC {
+	display: none;
+}
+select {
+	font-size: smaller;
+	border-radius: 5px;
+}
+
+header {
+	font-size: xx-large;
+	padding: 10px 0px;
+}
+header img {
+	margin: -5px;
+}
+header > label {
+	display: block;
+	font-size: x-large;
+	text-align: center;
+	padding: 10px
+}
+.buttonsInRow {
+	display: flex;
+	width: 100%;
+	gap: 5px;
+	flex-wrap: wrap;
+}
+.buttonsInRow * {
+	flex-grow: 1;
+}
+.buttonsInRow > a > button {
+	width: 100%;
+}
+
+/* index */
+#listaPojecHeader > label {
+	float: right;
+}
+#listaPojec {
+	font-size: large;
+	margin: -10px 10px 10px 10px;
+}
+
+/* fiszki */
+#fiszkiPoj {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	box-sizing: border-box;
+}
+#fiszka {
+	box-sizing: border-box;
+	border-radius: 30px;
+	flex: 0 1 500px;
+	height: 500px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: xx-large;
+	margin: 5px 0px;
+}
+#fiszka > span {
+	text-align: center;
+}
+#tytul {
+	display: inline;
+	margin: 10px;
+}
+.center {
+	display: flex;
+	justify-content: center;
+}
+.ukryj, .ukryj * {
+	display: none;
+}
+#zaczOdDrContainer {
+	font-size: larger;
+	float: right;
+	padding: 10px 0px;
+}
+
+/* Responsywność */
+@media screen and (min-width: 800px) {
+	.showOnPC {
+		display: inline;
+	}
+	.buttonsInRow > * {
+		flex-grow: 0;
+	}
+	header > label {
+		font-size: xx-large;
+		float: right;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	body {
+		width: 1200px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}

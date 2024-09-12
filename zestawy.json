@@ -17,7 +17,7 @@
 	{"war1":"die Schultasche","war2":"torba do szkoły","kat":"die"},{"war1":"die Sneakers","war2":"trampki","kat":"die"},{"war1":"die Socken","war2":"skarpetki","kat":"die"},
 	{"war1":"die Strumpfhose","war2":"rajstopy","kat":"die"},{"war1":"das Sweatshirt","war2":"bluza","kat":"das"},{"war1":"die Trinkflasche","war2":"bidon","kat":"die"},
 	{"war1":"der Turnbeutel","war2":"worek na strój gimnastyczny","kat":"der"},{"war1":"der USB-Stick","war2":"pendrive","kat":"der"},{"war1":"die Weste","war2":"kamizelka","kat":"die"}],
-	"slownik":"https://www.diki.pl/slownik-niemieckiego","list":["^war2^","^war1^"],"fiszki":["^war2^","^war1^"]},
+	"slownik":"https://www.diki.pl/slownik-niemieckiego","list":["^war2^","^war1^"],"fiszki":["^war2^","^war1^"],"pisanie":[["^war2^","^war1^"],["^war1^","^war2^"]]},
 	{
 		"id":"niemOpisUbr","nazwa":"Niemiecki - Opis ubrań",
 		"pojecia":[
@@ -36,7 +36,8 @@
 			{"war1":"weit","war2":"szeroki"}],
 		"slownik":"https://www.diki.pl/slownik-niemieckiego",
 		"list":["^war1^","^war2^"],"fiszki":["^war2^","^war1^"],
-		"sort":[["war1","Niemiecki"],["war2","Polski"]]
+		"sort":[["war1","Niemiecki"],["war2","Polski"]],
+		"pisanie":[["^war2^","^war1^"],["^war1^","^war2^"]]
 	},
 	{
 		"id":"geoParkNar","nazwa":"Geografia - Parki Narodowe",
@@ -64,9 +65,10 @@
 			{"naz":"Wielkopolski",	"woj":"wielkopolskie",	"sym":"puszczyk"},
 			{"naz":"Wigierski",		"woj":"podlaskie",		"sym":"bóbr i jezioro Wigry"},
 			{"naz":"Woliński",		"woj":"zachodniopomorskie",	"sym":"bielik",				"elm":"najwyższy klif"}
-		], "list":["^naz^ PN","^woj^, ^sym^","^elm^"], "list^": ["Nazwa","Położenie i symbol","Charakterystyczne"],
+		], "list":["^naz^ PN","^woj^","^sym^","^elm^"], "list^": ["Nazwa","Położenie","symbol","Charakterystyczne"],
 		"fiszki":["^naz^ PN","^woj^, ^sym^","?^elm^"], "fiszki^": ["Nazwa","Położenie i symbol","Charakterystyczne"],
-		"sort":[["naz","Nazwa"],["woj","Województwo"],["sym","Symbol"],["elm","Charakterystyczne"]]
+		"sort":[["naz","Nazwa"],["woj","Województwo"],["sym","Symbol"],["elm","Charakterystyczne"]],
+		"pisanie":[["^naz^ PN","^woj^"],["^naz^ PN","^sym^"]]
 	},
 	{
 		"id":"niemSzykZdan", "nazwa":"Niemiecki - Szyki zdań",
