@@ -91,5 +91,19 @@
 		"fiszki":["^pl^","^niem^","^szyk^"], "fiszki^":["Polski","Niemiecki","Szyk zdania"],
 		"sort":[["niem","Niemiecki"],["pl","Polski"],["szyk","Szyk zdania"]],
 		"pisanie":[["^pl^","^niem^"],["^niem^","^pl^"]]
+	},
+	{
+		"id":"angPersonalityWords", "nazwa":"Angielski - Personality",
+		"pojecia":[
+			{"e":"resourceful","p":"pomysłowy"},
+			{"e":"thorough","p":"dokładny"},
+			{"e":"self-sufficient","p":"samowystarczalny"},
+			{"e":"straightforward","p":"bezpośredni"},
+			{"e":"sympathetic","p":"współczujący"}
+			
+		], "list":["^e^","^p^"], "list^":["Angielski","Polski"],
+		"fiszki":["^e^","^p^"], "fiszki^":["Angielski","Polski"],
+		"sort":[["e","Angielski"],["p","Polski"]],
+		"pisanie":[["^e^","^p^"],["^p^","^e^"]]
 	}
 ]
