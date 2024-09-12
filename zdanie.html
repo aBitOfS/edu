@@ -113,6 +113,11 @@
 				$("#nieznam").click(function() { odloz(1); });
 			}
 
+			function dark_mode() {
+				$("body").toggleClass("dark")
+				localStorage.setItem("dark_mode",$("body").hasClass("dark"))
+			}
+			
 			$(document).ready(function() {
 				nazwaZestawu = localStorage.getItem("zestaw") ?? "niem";
 				zestaw = localStorage.getItem(nazwaZestawu);
@@ -121,6 +126,8 @@
 				}
 				else
 					alert("BŁĄD: brak szukanego zestawu")
+				if (localStorage.getItem("dark_mode") == "true")
+					dark_mode()
 			})
 		</script>
 	</head>
@@ -133,7 +140,7 @@
 			<button onclick="dark_mode()">Dark mode</button>
 		</header>
 		<main>
-			<a href="index.html"><button>Back</button></a> <h1 id="tytul"></h1>
+			<a href="index.html">Back</a> <h1 id="tytul"></h1>
 			<label id="zaczOdDrContainer">Zacznij od drugiej strony<input id="zaczOdDr" type="checkbox"/></label>
 			<div id="fiszkiPoj">
 				<div id="fiszka">

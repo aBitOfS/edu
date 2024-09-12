@@ -3,6 +3,7 @@
 }
 
 button, input, a {
+	display: inline-block;
 	background-color: white;
 	border: 3px solid rgb(14, 14, 114);
 	color: rgb(14, 14, 114);
@@ -12,6 +13,16 @@ button, input, a {
 	margin: 10px;
 	text-decoration: none;
 	transition: transform 0.1s linear;
+}
+button:disabled, input:disabled {
+	color: rgb(58, 58, 58);
+	border: 3px solid rgb(58, 58, 58);
+	transform: scale(1) !important;
+}
+.dark button:disabled, .dark input:disabled {
+	color: rgb(160, 160, 160);
+	border: 3px solid rgb(160, 160, 160);
+
 }
 button:hover, input:hover, a:hover {
 	color: rgb(7, 7, 43);
@@ -60,11 +71,7 @@ h4, h5 {
 	color: white;
 	border-color: white;
 }
-/*main {
-	flex-shrink: 1;
-	padding: 10px;
-	border-top: 1px solid rgb(255, 255, 255);
-}*/
+
 .dark h4, .dark h5 {
 	color: rgb(216, 216, 216);
 }

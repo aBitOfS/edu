@@ -62,21 +62,25 @@
 					lP.append(str+"</tr>")
 				}
 			}
+			function dark_mode() {
+				$("body").toggleClass("dark")
+				localStorage.setItem("dark_mode",$("body").hasClass("dark"))
+			}
 			var index;
 			$(document).ready(function() {
 				index = new Index();
+				if (localStorage.getItem("dark_mode") == "true")
+					dark_mode()
 			})
-		</script>
-		<script>
-			function dark_mode() {
-				$("body").toggleClass("dark")
-			}
 		</script>
 	</head>
 	<body>
 		<header>
-			<b><a href="https://abitofs.github.io"><img src="https://raw.githubusercontent.com/aBitOfS/aBitOfS/main/abitofs.png" alt="abitofs" height="50px"/> HOME </a>
-			<a href="index.html"><img src="media/logoEdu.svg" alt="edu" height="50px"/> EDU</a></b><button onclick="dark_mode()">Dark mode</button>
+			<b>
+				<a href="https://abitofs.github.io"><img src="https://raw.githubusercontent.com/aBitOfS/aBitOfS/main/abitofs.png" alt="abitofs" height="50px"/> HOME </a>
+				<a href="index.html"><img src="media/logoEdu.svg" alt="edu" height="50px"/> EDU </a>
+			</b>
+			<button onclick="dark_mode()">Dark mode</button>
 			<label>Przedmiot
 				<select id="wyborZestawu" name="wyborZestawu" onchange="index.zmianaZestawu()">
 					<option value="">Brak zestawów</option>
