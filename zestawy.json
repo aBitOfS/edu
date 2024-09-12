@@ -99,8 +99,18 @@
 			{"e":"thorough","p":"dokładny"},
 			{"e":"self-sufficient","p":"samowystarczalny"},
 			{"e":"straightforward","p":"bezpośredni"},
-			{"e":"sympathetic","p":"współczujący"}
-			
+			{"e":"sympathetic","p":"współczujący"},
+
+			{"e":"a heart of gold","p":"złote serce"},
+			{"e":"down to earth","p":"przyziemny, praktyczny"},
+			{"e":"a cold fish","p":"nieczuły"},
+			{"e":"a real pain in the neck","p":"bardzo denerwujący"},
+			{"e":"a soft touch","p":"łatwowierny"},
+			{"e":"a very quick temper","p":"nerwowy"},
+			{"e":"full of oneself","p":"zarozumiały"},
+			{"e":"wouldn't hurt a fly","p":"nie zabiłby muchy"},
+			{"e":"lift a finger","p":"kiwnąć palcem"},
+			{"e":"the life and soul of the party","p":"dusza towarzystwa"}
 		], "list":["^e^","^p^"], "list^":["Angielski","Polski"],
 		"fiszki":["^e^","^p^"], "fiszki^":["Angielski","Polski"],
 		"sort":[["e","Angielski"],["p","Polski"]],
