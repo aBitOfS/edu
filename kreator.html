@@ -15,6 +15,46 @@
 		
 		<script src="script.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+		<script>
+			function create() {
+				let set = {
+					"id":$("#tytul").val(), // !!!
+					"nazwa":$("#tytul").val(),
+					"opis":$("#opis").val(),
+					"pojecia":[],
+					"list":["niem","odm","pol"],"list^":["Niemiecki","Partizip Perfekt","Polski"],
+					"fiszki":["niem","odm","pol"],"fiszki^":["Niemiecki","Partizip Perfekt","Polski"],
+					"pisanie":[["pol","niem"],["niem","odm"]]
+				}
+				let a = $(".a")
+				let b = $(".b")
+				let c = $(".c")
+				for (let i = 0; i < a.length; i++)
+				{
+					set.pojecia.push({"niem":a[i].value,"odm":b[i].value,"pol":c[i].value})
+				}
+				alert(JSON.stringify(set));
+			}
+			function add_row() {
+				$("#pojecia").append(document.getElementsByTagName("template")[0].content.cloneNode(true))
+				
+				//document.body.app
+			}
+			function dark_mode() {
+				$("body").toggleClass("dark")
+				localStorage.setItem("dark_mode",$("body").hasClass("dark"))
+			}
+			$(document).ready(function() {
+				if (localStorage.getItem("dark_mode") == "true")
+					dark_mode()
+			})
+		</script>
+		<template>
+			<div class="buttonsInRow">
+				<input class="a"> <input class="b"> <input class="c"> <button onclick="this.parentNode.remove()">X</button>
+			</div>
+		</template>
 	</head>
 	<body>
 		<header>
@@ -27,8 +67,14 @@
 		<main>
 			<a href="index.html">Back</a> <label>Tytuł:<input id="tytul"></input></label>
 			<label>Język: PL</label><br><label>Przedmiot: <input id="przedmiot" type="text"></label><br/>
-			<label>Opis: <input type="text"></label>
-			<div></div>
+			<label>Opis: <input id="opis" type="text"></label>
+			<div id="pojecia">
+				
+			</div>
+			<div class="buttonsInRow">
+				<button onclick="create()">GENERATE</button>
+				<button onclick="add_row()"> + </button>
+			</div>
 		</main>
 	</body>
 </html>
