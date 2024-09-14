@@ -17,21 +17,23 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<script>
 			var pojecie, nazwaZestawu, zestaw, strona, szablon, element;
+			var stan = 0; // 0 - pytanie, 1 - poprawa, 2 - ocena
 
 			function odloz(ileMinut) {
 				let nast = dalej(zestaw,szablon[$(zaczOdDr).prop("checked") ? 1 : 0],pojecie,ileMinut);
-				if (nast) 
+				if (nast)
 					nastepna(nast);
 				/*else 
 					alert("Wystąpił nieoczekiwany błąd")*/
 			}
 			function nastepna(nast) {
+				stan = 0;
 				[pojecie, element] = nast;
 
 				$(".pojecie").text(element[0]);
 				
-				$("#pyt").removeClass("ukryj");
-				$("#ocen").addClass("ukryj");
+				$("#pyt").removeClass("hidden");
+				$("#ocen").addClass("hidden");
 				
 				$("#odp").focus();
 			}
@@ -39,7 +41,7 @@
 				let odp = $("#odp").val();
 				$("#odp").val("");
 
-				if (odp == element[1]) {
+				if (odp == element[1]) { // Poprawna
 					let dzien = 24*60
 					if (!pojecie.umiej) {
 						pojecie.umiej = 1;
@@ -58,20 +60,22 @@
 						}
 					}
 				}
-				else {
+				else { // Zła
+					stan = 1;
 					$("#odpowiedz").text(element[1]);
 					$("#twojaOdp").text(odp);
 					
-					$("#popraw").removeClass("ukryj");
-					$("#pyt").addClass("ukryj");
+					$("#popraw").removeClass("hidden");
+					$("#pyt").addClass("hidden");
 					
 					$("#przepisz").focus();
 				}
 			}
 			function pomin() {
+				stan = 2
 				$("#przepisz").val("");
-				$("#popraw").addClass("ukryj");
-				$("#ocen").removeClass("ukryj");
+				$("#popraw").addClass("hidden");
+				$("#ocen").removeClass("hidden");
 			}
 			function start() {
 				// Wczytywanie
@@ -92,8 +96,8 @@
 						sprawdz();
 					}
 				});
-				$("#przepisz").on('keypress',function(e) {
-					if ($("#przepisz").val()+e.key == element[1]) 
+				$("#przepisz").on('input',function() {
+					if ($("#przepisz").val() == element[1]) 
 						pomin();
 				});
 
@@ -101,6 +105,17 @@
 				$("#powtorze").click(function() { odloz(5); });
 				$("#nieznam").click(function() { odloz(1); });
 				
+				$("body").on('keyup',function(e) {
+					if (stan == 2 && e.which > 48 && e.which <= 51) {
+						console.log("TERAZ")
+						switch (e.which-48) {
+							case 1: odloz(10); break;
+							case 2: odloz(5); break;
+							case 3: odloz(1); break;
+						}
+					}
+				});
+
 				nastepna(dalej(zestaw, szablon[0]));
 			}
 
@@ -129,31 +144,55 @@
 				<a href="https://abitofs.github.io"><img src="https://raw.githubusercontent.com/aBitOfS/aBitOfS/main/abitofs.png" alt="abitofs" height="50px"/> HOME </a>
 				<a href="index.html"><img src="media/logoEdu.svg" alt="edu" height="50px"/> EDU</a>
 			</b>
-			<button onclick="dark_mode()">Dark mode</button>
+			<button id="darkMode" onclick="darkMode()">
+				<img alt="Dark mode" src="https://cdn.pixabay.com/photo/2013/07/13/12/16/moon-159504_1280.png" height="30px"/>
+				<span class="showOnPC">
+					Dark mode
+				</span>
+			</button>
 		</header>
 		<main>
-			<a href="index.html">Back</a> <h1 id="tytul"></h1>
-			<label id="zaczOdDrContainer">Zacznij od drugiej strony<input id="zaczOdDr" type="checkbox"/></label>
-			<div id="pyt">
-				<h2 class="pojecie">Brak pojęć</h2>
-				<label>Odpowiedź:<input id="odp"></label>
-				<button onclick="sprawdz()">Sprawdź</button>
+			<div class="buttonsInRow">
+				<a href="index.html">Back</a>
+				<button disabled="disabled">Zgłoś błąd</button>
+				<button disabled="disabled">Kolejność</button>
+				<button disabled="disabled">Ustawienia</button>
+				<label id="zaczOdDrContainer">Zacznij od drugiej strony<input id="zaczOdDr" type="checkbox"/></label>
 			</div>
-			<div id="popraw" class="ukryj">
+			<h1 id="tytul"></h1>
+			<!--<h3><span>0</span> of <span>0</span></h3>-->
+			<div id="pyt">
+				<h4 style="margin-bottom: 0px">Translate</h4>
+				<h1 class="pojecie" style="margin: 5px">Brak pojęć</h1>
+				<h4 style="margin-top: 0px">into English</h4>
+				<input class="fullWidth" id="odp"/>
+				<button onclick="sprawdz()" class="fullWidth">SUBMIT</button>
+			</div>
+			<div id="popraw" class="hidden">
 				<h2 class="pojecie">Brak pojęć</h2>
 				<p>Twoja odpowiedź: <span id="twojaOdp"></span></p>
 				<h3 id="odpowiedz">Brak poprawnej odpowiedzi</h3>
 				<label>Przepisz odpowiedź:<input id="przepisz"></label>
 				<button onclick="pomin()">Pomiń</button>
 			</div>
-			<div id="ocen" class="ukryj">
+			<div id="ocen" class="hidden">
 				<h2>Jak to umiesz?</h2>
 				<div class="buttonsInRow center">
-					<button id="prawie">Już prawie</button>
-					<button id="powtorze">Lepiej powtórzę</button>
-					<button id="nieznam">W ogóle nie łapię</button>
+					<button id="prawie">Już prawie<span class="showOnPC">[1]</span></button>
+					<button id="powtorze">Lepiej powtórzę<span class="showOnPC">[2]</span></button>
+					<button id="nieznam">W ogóle nie łapię<span class="showOnPC">[3]</span></button>
 				</div>
 			</div>
 		</main>
+		<div>
+			<a id="dictionaryOpen" onclick="$('#dictionary').removeClass('hidden')"href="https://www.diki.pl/slownik-angielskiego"
+					target="dictionary"><p>Sprawdź znaczenie<br/>w słowniku</p>
+				<img alt="logo słownika" width="110px" src="https://www.diki.pl/images/diki/diki_logo.svg"/>
+			</a>
+			<div id="dictionary" class="hidden">
+				<button onclick="$('#dictionary').addClass('hidden')">X</button>
+				<iframe name="dictionary" src="https://www.diki.pl/" name="dikiDictionary"></iframe>
+			</div>
+		</div>
 	</body>
 </html>

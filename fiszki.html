@@ -79,11 +79,6 @@
 				nastepna(dalej(zestaw, szablon));
 			}
 
-			function dark_mode() {
-				$("body").toggleClass("dark")
-				localStorage.setItem("dark_mode",$("body").hasClass("dark"))
-			}
-
 			$(document).ready(function() {
 				nazwaZestawu = localStorage.getItem("zestaw") ?? "niem";
 				zestaw = localStorage.getItem(nazwaZestawu);
@@ -104,11 +99,17 @@
 				<a href="https://abitofs.github.io"><img src="https://raw.githubusercontent.com/aBitOfS/aBitOfS/main/abitofs.png" alt="abitofs" height="50px"/> HOME </a>
 				<a href="index.html"><img src="media/logoEdu.svg" alt="edu" height="50px"/> EDU</a>
 			</b>
-			<button onclick="dark_mode()">Dark mode</button>
+			<button id="darkMode" onclick="darkMode()">
+				<img alt="Dark mode" src="https://cdn.pixabay.com/photo/2013/07/13/12/16/moon-159504_1280.png" height="30px"/>
+				<span class="showOnPC">
+					Dark mode
+				</span>
+			</button>
 		</header>
 		<main>
-			<a href="index.html">Back</a> <h1 id="tytul"></h1>
+			<a href="index.html">Back</a> 
 			<label id="zaczOdDrContainer">Zacznij od drugiej strony<input id="zaczOdDr" type="checkbox"/></label>
+			<h1 id="tytul"></h1>
 			<div id="fiszkiPoj">
 				<div id="fiszka">
 					<span>brak pojęć</span>
@@ -122,5 +123,15 @@
 				<button id="nieznam">W ogóle nie łapię</button>
 			</div>
 		</main>
+		<div>
+			<a id="dictionaryOpen" onclick="$('#dictionary').removeClass('hidden')"href="https://www.diki.pl/slownik-angielskiego"
+					target="dictionary"><p>Sprawdź znaczenie<br/>w słowniku</p>
+				<img alt="logo słownika" width="110px" src="https://www.diki.pl/images/diki/diki_logo.svg"/>
+			</a>
+			<div id="dictionary" class="hidden">
+				<button onclick="$('#dictionary').addClass('hidden')">X</button>
+				<iframe name="dictionary" src="https://www.diki.pl/" name="dikiDictionary"></iframe>
+			</div>
+		</div>
 	</body>
 </html>

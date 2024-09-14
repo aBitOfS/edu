@@ -155,5 +155,15 @@
 				<button id="nieznam">W ogóle nie łapię</button>
 			</div>
 		</main>
+		<div>
+			<a id="dictionaryOpen" onclick="$('#dictionary').removeClass('hidden')"href="https://www.diki.pl/slownik-angielskiego"
+					target="dictionary"><p>Sprawdź znaczenie<br/>w słowniku</p>
+				<img alt="logo słownika" width="110px" src="https://www.diki.pl/images/diki/diki_logo.svg"/>
+			</a>
+			<div id="dictionary" class="hidden">
+				<button onclick="$('#dictionary').addClass('hidden')">X</button>
+				<iframe name="dictionary" src="https://www.diki.pl/" name="dikiDictionary"></iframe>
+			</div>
+		</div>
 	</body>
 </html>

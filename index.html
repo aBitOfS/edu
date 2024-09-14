@@ -17,60 +17,20 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 		<script>
-			function wczytajJSON() {
-				$.getJSON("zestawy.json",(zestawy) => {
-					if (zestawy && zestawy != "undefined")
-						index.wczytajZestawy(zestawy); 
-				}).fail(function() {index.wczytajZestawy([]); })
-			}
-			function doZapisz(zestawy) {
-				console.log("doZapisz")
-				$("#wyborZestawu").empty()
-				for (let el of zestawy)
-					$("#wyborZestawu").append(`<option value="${el.id}">${el.nazwa}</option>`)
-			}
-			function doZmiana(zestaw) {
-				console.log("doZmiana")
-				// Rodzaje sortowania
-				let wS = $("#wyborSortowania").empty()/*.append(`<option value="id">Oryginalna
-					kolejność</option>`)*/.append('<option value="umiej time">Według umiejętności</option>')
-				if (zestaw.sort) {
-					for (let el of zestaw.sort)
-						wS.append(`<option value="${el[0]}">${el[1]}</option>`);
-				}
-				wyswietlZestaw(zestaw);
-			}
-			function wyswietlZestaw(zestaw) {
-				console.log("wyswietlZestaw")
-				// Lista pojęć
-				sortuj(zestaw.pojecia,...$("#wyborSortowania").val().split(" "));
-				let lP = $("#listaPojec").empty(), str;
-				if (!zestaw.list) {
-					lP.append("<h2>Podgląd niedostępny</h2>")
-					return;
-				}
-				else if (zestaw["list^"]) {
-					str = "<tr>";
-					for (let el of zestaw["list^"])
-						str += `<th>${el}</th>`;
-					lP.append(str+"</tr>");
-				}
-				for (let el of zestaw.pojecia) {
-					str = "<tr>"
-					for (let ell of aplikujSzablon(zestaw.list, el))
-						str += `<td>${ell}</td>`;
-					lP.append(str+"</tr>")
-				}
-			}
-			function dark_mode() {
-				$("body").toggleClass("dark")
-				localStorage.setItem("dark_mode",$("body").hasClass("dark"))
+			function closeDictionary() {
+				
 			}
 			var index;
 			$(document).ready(function() {
 				index = new Index();
-				if (localStorage.getItem("dark_mode") == "true")
-					dark_mode()
+				
+				$.getJSON("zestawy.json",(zestawy) => {
+					if (zestawy && zestawy != "undefined")
+						index.wczytajZestawy(zestawy); 
+				}).fail(function() {index.wczytajZestawy([]); })
+
+				if (localStorage.getItem("darkMode") == "true")
+					darkMode()
 			})
 		</script>
 	</head>
@@ -80,8 +40,13 @@
 				<a href="https://abitofs.github.io"><img src="https://raw.githubusercontent.com/aBitOfS/aBitOfS/main/abitofs.png" alt="abitofs" height="50px"/> HOME </a>
 				<a href="index.html"><img src="media/logoEdu.svg" alt="edu" height="50px"/> EDU </a>
 			</b>
-			<button onclick="dark_mode()">Dark mode</button>
-			<label>Przedmiot
+			<button id="darkMode" onclick="darkMode()">
+				<img alt="Dark mode" src="https://cdn.pixabay.com/photo/2013/07/13/12/16/moon-159504_1280.png" height="30px"/>
+				<span class="showOnPC">
+					Dark mode
+				</span>
+			</button>
+			<label>Zestaw:
 				<select id="wyborZestawu" name="wyborZestawu" onchange="index.zmianaZestawu()">
 					<option value="">Brak zestawów</option>
 				</select>
@@ -107,5 +72,16 @@
 				<button disabled="disabled">Utwórz</button>
 			</div>
 		</main>
+		<div>
+			<a id="dictionaryOpen" onclick="$('#dictionary').removeClass('hidden')"href="https://www.diki.pl/slownik-angielskiego"
+					target="dictionary"><p>Sprawdź znaczenie<br/>w słowniku</p>
+				<img alt="logo słownika" width="110px" src="https://www.diki.pl/images/diki/diki_logo.svg"/>
+			</a>
+			<div id="dictionary" class="hidden">
+				<button onclick="$('#dictionary').addClass('hidden')">X</button>
+				<iframe name="dictionary" src="https://www.diki.pl/" name="dikiDictionary"></iframe>
+			</div>
+		</div>
+		
 	</body>
 </html>

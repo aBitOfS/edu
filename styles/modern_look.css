@@ -41,23 +41,6 @@ h4, h5 {
 	margin-bottom: 2px;
 }
 
-#lookAtDefinitionInDikiAng {
-	border: 0px solid black;
-	border-radius: 10px 10px 0px 0px;
-	box-shadow: 3px 3px 7px;
-	margin-left: 10px;
-	margin-bottom: -10px;
-}
-#dikiOpenButton {
-	position: fixed;
-	right: 10px;
-	bottom: 10px;
-}
-#dikiOpenButton > div {
-	display: inline-block;
-	text-align: justify;
-	width: 110px;
-}
 .hidden {
 	display: none;
 }

@@ -13,6 +13,9 @@ header {
 	font-size: xx-large;
 	padding: 10px 0px;
 }
+header a, header button {
+	margin: 0px;
+}
 header img {
 	margin: -5px;
 }
@@ -22,6 +25,14 @@ header > label {
 	text-align: center;
 	padding: 10px
 }
+#darkMode {
+	border-color: black;
+	background-color: rgb(144, 144, 187);
+}
+#darkMode img {
+	margin: 0px;
+}
+
 .buttonsInRow {
 	display: flex;
 	width: 100%;
@@ -61,7 +72,12 @@ header > label {
 	align-items: center;
 	font-size: xx-large;
 	margin: 5px 0px;
+	background-color: rgb(174, 174, 209);
 }
+.drugaStrona {
+	background-color: rgb(144, 144, 187) !important;
+}
+
 #fiszka > span {
 	text-align: center;
 }
@@ -73,13 +89,50 @@ header > label {
 	display: flex;
 	justify-content: center;
 }
-.ukryj, .ukryj * {
-	display: none;
+.fullWidth {
+	box-sizing: border-box;
+	margin-left: 10px;
+	margin-right: 10px;
+	width: calc(100% - 20px);
+	text-align: center;
 }
 #zaczOdDrContainer {
 	font-size: larger;
 	float: right;
 	padding: 10px 0px;
+}
+
+/* pisanie */
+#pyt button, #ocen button {
+	padding: 20px;
+}
+
+
+
+/* Dictionary */
+#dictionaryOpen {
+	display: flex;
+	max-width: 300px;
+	text-align: center;
+	gap: 10px
+}
+#dictionary iframe {
+	position: fixed;
+	right: 0px;
+	width: 100%;
+	height: calc(100% - 100px);
+	bottom: 0px;
+	border: 0px black solid;
+	border-radius: 20px 20px 0px 0px;
+	box-shadow: 3px 3px 10px;
+	margin: 0px;
+}
+#dictionary button {
+	font-size: xx-large;
+	padding: 5px 15px;
+	position: fixed;
+	right: 0px;
+	bottom: calc(100% - 100px);
 }
 
 /* Responsywność */
@@ -93,6 +146,29 @@ header > label {
 	header > label {
 		font-size: xx-large;
 		float: right;
+	}
+	header a, header button {
+		margin: 10px;
+	}
+	#dictionary iframe {
+		right: 20px;
+		width: 400px;
+	}
+	#dictionary button {
+		right: 20px;
+	}
+	#dictionaryOpen {
+		position: fixed;
+		right: 20px;
+		bottom: 0px;
+		width: 110px;
+		flex-direction: column;
+	}
+	#dictionaryOpen p {
+		margin: 10px 0px;
+	}
+	.fullWidth {
+		width: auto;
 	}
 }
 
