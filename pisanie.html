@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Fiszki - abitofEDU</title>
+		<title>Pisanie - abitofEDU</title>
 		<link rel="icon" type="image/svg" href="media/logoEdu.svg"/>
     	
 		<link rel="stylesheet" href="styles/modern_look.css">
@@ -34,6 +34,8 @@
 				
 				$("#pyt").removeClass("hidden");
 				$("#ocen").addClass("hidden");
+				
+				$("#dictionaryOpen").attr("href",zestaw.slownik[1].replace("%s",element[0]))
 				
 				$("#odp").focus();
 			}
@@ -133,8 +135,8 @@
 					alert("BŁĄD: brak szukanego zestawu");
 					history.back();
 				}
-				if (localStorage.getItem("dark_mode") == "true")
-					dark_mode()
+				if (localStorage.getItem("darkMode") == "true")
+					darkMode()
 			})
 		</script>
 	</head>

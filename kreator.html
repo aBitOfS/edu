@@ -19,20 +19,25 @@
 		<script>
 			function create() {
 				let set = {
-					"id":$("#tytul").val(), // !!!
-					"nazwa":$("#tytul").val(),
+					"id":$("#nazwa").val(), // !!!
+					"nazwa":$("#nazwa").val(),
+					"kategoria":$("#kategoria").val(),
+					"poziom":$("#poziom").val(),
+					"jezyk":"Polski", // Language of set
 					"opis":$("#opis").val(),
-					"pojecia":[],
-					"list":["niem","odm","pol"],"list^":["Niemiecki","Partizip Perfekt","Polski"],
-					"fiszki":["niem","odm","pol"],"fiszki^":["Niemiecki","Partizip Perfekt","Polski"],
-					"pisanie":[["pol","niem"],["niem","odm"]]
+					"pola":[], // [[Field1,Type,...], [Field2,...], ...]
+					"pojecia":[], // [[Field1 value, Field2 value, ...]]
+					"slownik":[$("#slownikBaza").val(),$("#slownikWyszukiwanie").val()], // [Main page, Search page with %s as query]
+					"quizy":[], // Built in quizes [[CodeName,[Data]]]
+					"materialy":[], // [[Name, url]]
+					"testy":[] // Other brand's quizes [[Name,Url]]
 				}
 				let a = $(".a")
 				let b = $(".b")
-				let c = $(".c")
+				//let c = $(".c")
 				for (let i = 0; i < a.length; i++)
 				{
-					set.pojecia.push({"niem":a[i].value,"odm":b[i].value,"pol":c[i].value})
+					set.pojecia.push({"ang":a[i].value,"pol":b[i].value/*,"pol":c[i].value*/})
 				}
 				alert(JSON.stringify(set));
 			}
@@ -46,13 +51,13 @@
 				localStorage.setItem("dark_mode",$("body").hasClass("dark"))
 			}
 			$(document).ready(function() {
-				if (localStorage.getItem("dark_mode") == "true")
-					dark_mode()
+				if (localStorage.getItem("darkMode") == "true")
+					darkMode()
 			})
 		</script>
 		<template>
 			<div class="buttonsInRow">
-				<input class="a"> <input class="b"> <input class="c"> <button onclick="this.parentNode.remove()">X</button>
+				<input class="a"> <input class="b"><!-- <input class="c"> --><button onclick="this.parentNode.remove()">X</button>
 			</div>
 		</template>
 	</head>
@@ -62,18 +67,50 @@
 				<a href="https://abitofs.github.io"><img src="https://raw.githubusercontent.com/aBitOfS/aBitOfS/main/abitofs.png" alt="abitofs" height="50px"/> HOME </a>
 				<a href="index.html"><img src="media/logoEdu.svg" alt="edu" height="50px"/> EDU</a>
 			</b>
-			<button onclick="dark_mode()">Dark mode</button>
+			<button id="darkMode" onclick="darkMode()">
+				<img alt="Dark mode" src="https://cdn.pixabay.com/photo/2013/07/13/12/16/moon-159504_1280.png" height="30px"/>
+				<span class="showOnPC">
+					Dark mode
+				</span>
+			</button>
 		</header>
 		<main>
-			<a href="index.html">Back</a> <label>Tytuł:<input id="tytul"></input></label>
-			<label>Język: PL</label><br><label>Przedmiot: <input id="przedmiot" type="text"></label><br/>
-			<label>Opis: <input id="opis" type="text"></label>
+			<a href="index.html">Back</a><label>Język: PL</label>
+			<h2>Utwórz zestaw</h2>
+			<label>Nazwa:<input id="nazwa"></input></label><br>
+			<label>Kategoria: <input id="kategoria"></label><br/>
+			<label>Poziom: <input id="poziom"></label><br/>
+			<label>Opis: <input id="opis"></label>
+			<h3>Dodaj linki do słowników/opisów:</h3>
+			<label>Strona główna: <input id="slownikBaza"></label><a>Test</a>
+			<label>Wyszukiwanie (%s zamiast zapytania): <input id="slownikWyszukiwanie"></label><a>Test</a>
+			<p>Lepiej zrobić to teraz, aby móc korzystać z podpowiedzi podczas wpisywania pojęć</p>
+			<h3>Utwórz pola danych:</h3>
+			<div id="pola" class="buttonsInRow">
+
+			</div><button>+</button>
+			<h3>Dodaj pojęcia:</h3>
 			<div id="pojecia">
 				
-			</div>
-			<div class="buttonsInRow">
-				<button onclick="create()">GENERATE</button>
-				<button onclick="add_row()"> + </button>
+			</div><button onclick="add_row()"> + </button>
+			<h3>Dostosuj wbudowane formy quizów:</h3>
+			<div id="quizy">
+				
+			</div><button>+</button>
+			<h3>Dodaj dodatkowe materiały:</h3>
+			<div id="materialy">
+				
+			</div><button>+</button>
+			<h3>Dodaj linki do innych testów:</h3>
+			<div id="testy">
+				
+			</div><button>+</button>
+			
+			<div>
+				<button disabled="disabled">Podgląd</button>
+				<button disabled="disabled">Udostępnij</button>
+				<button onclick="create()">Generuj json</button>
+				<button disabled="disabled">Ucz się</button>
 			</div>
 		</main>
 		<div>

@@ -52,7 +52,8 @@
 		], "list":["^naz^ PN","^woj^","^sym^","^elm^"], "list^": ["Nazwa","Położenie","symbol","Charakterystyczne"],
 		"fiszki":["^naz^ PN","^woj^, ^sym^","?^elm^"], "fiszki^": ["Nazwa","Położenie i symbol","Charakterystyczne"],
 		"sort":[["naz","Nazwa"],["woj","Województwo"],["sym","Symbol"],["elm","Charakterystyczne"]],
-		"pisanie":[["^naz^ PN","^woj^"],["^naz^ PN","^sym^"]]
+		"pisanie":[["^naz^ PN","^woj^"],["^naz^ PN","^sym^"]],
+		"slownik":["https://www.diki.pl","https://www.diki.pl/slownik-angielskiego?q=%s"]
 	},
 	{"id":"niemUbr","nazwa":"Niemiecki - Ubrania","pojecia":[{"war1":"der Anzug","war2":"garnitur","kat":"der"},{"war1":"das Armband","war2":"branzoletka","kat":"das"},
 	{"war1":"die Armbanduhr","war2":"zegarek","kat":"die"},{"war1":"die Bluse","war2":"bluzka","kat":"die"},{"war1":"das Deodorant","war2":"dezodorant","kat":"das"},
@@ -72,7 +73,7 @@
 	{"war1":"die Schultasche","war2":"torba do szkoły","kat":"die"},{"war1":"die Sneakers","war2":"trampki","kat":"die"},{"war1":"die Socken","war2":"skarpetki","kat":"die"},
 	{"war1":"die Strumpfhose","war2":"rajstopy","kat":"die"},{"war1":"das Sweatshirt","war2":"bluza","kat":"das"},{"war1":"die Trinkflasche","war2":"bidon","kat":"die"},
 	{"war1":"der Turnbeutel","war2":"worek na strój gimnastyczny","kat":"der"},{"war1":"der USB-Stick","war2":"pendrive","kat":"der"},{"war1":"die Weste","war2":"kamizelka","kat":"die"}],
-	"slownik":"https://www.diki.pl/slownik-niemieckiego","list":["^war2^","^war1^"],"fiszki":["^war2^","^war1^"],"pisanie":[["^war2^","^war1^"],["^war1^","^war2^"]]},
+	"slownik":["https://www.diki.pl/slownik-niemieckiego","https://www.diki.pl/slownik-niemieckiego?q=%s"],"list":["^war2^","^war1^"],"fiszki":["^war2^","^war1^"],"pisanie":[["^war2^","^war1^"],["^war1^","^war2^"]]},
 	{
 		"id":"niemOpisUbr","nazwa":"Niemiecki - Opis ubrań",
 		"pojecia":[
@@ -89,10 +90,10 @@
 			{"war1":"lang","war2":"długi"},
 			{"war1":"eng","war2":"wąski"},
 			{"war1":"weit","war2":"szeroki"}],
-		"slownik":"https://www.diki.pl/slownik-niemieckiego",
 		"list":["^war1^","^war2^"],"fiszki":["^war2^","^war1^"],
 		"sort":[["war1","Niemiecki"],["war2","Polski"]],
-		"pisanie":[["^war2^","^war1^"],["^war1^","^war2^"]]
+		"pisanie":[["^war2^","^war1^"],["^war1^","^war2^"]],
+		"slownik":["https://www.diki.pl/slownik-niemieckiego","https://www.diki.pl/slownik-niemieckiego?q=%s"]
 	},
 	{
 		"id":"niemSzykZdan", "nazwa":"Niemiecki - Szyki zdań",
@@ -114,7 +115,8 @@
 		], "list":["^niem^","^pl^","^szyk^"],"list^":["Niemiecki","Polski","Szyk zdania"],
 		"fiszki":["^pl^","^niem^","^szyk^"], "fiszki^":["Polski","Niemiecki","Szyk zdania"],
 		"sort":[["niem","Niemiecki"],["pl","Polski"],["szyk","Szyk zdania"]],
-		"pisanie":[["^pl^","^niem^"],["^niem^","^pl^"]]
+		"pisanie":[["^pl^","^niem^"],["^niem^","^pl^"]],
+		"slownik":["https://www.diki.pl/slownik-niemieckiego","https://www.diki.pl/slownik-niemieckiego?q=%s"]
 	},
 	{
 		"id":"niemPartzipPerfekt","nazwa":"Niemiecki - Partzip Perfekt",
@@ -157,6 +159,7 @@
 			{"niem":"helfen","odm":"geholfen","pol":"pomagać"}
 		],"list":["^niem^","^odm^","^pol^"],"list^":["Niemiecki","Partizip Perfekt","Polski"],
 		"fiszki":["^niem^","^odm^","^pol^"],"fiszki^":["Niemiecki","Partizip Perfekt","Polski"],
-		"pisanie":[["^pol^","^niem^"],["^niem^","^odm^"]]
+		"pisanie":[["^pol^","^niem^"],["^niem^","^odm^"]],
+		"slownik":["https://www.diki.pl/slownik-niemieckiego","https://www.diki.pl/slownik-niemieckiego?q=%s"]
 	}
 ]

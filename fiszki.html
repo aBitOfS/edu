@@ -32,6 +32,7 @@
 				
 				$("#fiszka > span").text(element[strona])
 				$("#fiszka").removeClass("drugaStrona");
+				$("#dictionaryOpen").attr("href",zestaw.slownik[1].replace("%s",element[strona]))
 			}
 			function start() {
 				// Wczytywanie
@@ -88,8 +89,8 @@
 					alert("BŁĄD: brak szukanego zestawu");
 					history.back();
 				}
-				if (localStorage.getItem("dark_mode") == "true")
-					dark_mode()
+				if (localStorage.getItem("darkMode") == "true")
+					darkMode()
 			})
 		</script>
 	</head>
@@ -124,7 +125,7 @@
 			</div>
 		</main>
 		<div>
-			<a id="dictionaryOpen" onclick="$('#dictionary').removeClass('hidden')"href="https://www.diki.pl/slownik-angielskiego"
+			<a id="dictionaryOpen" onclick="$('#dictionary').removeClass('hidden')" href="https://www.diki.pl/slownik-angielskiego"
 					target="dictionary"><p>Sprawdź znaczenie<br/>w słowniku</p>
 				<img alt="logo słownika" width="110px" src="https://www.diki.pl/images/diki/diki_logo.svg"/>
 			</a>

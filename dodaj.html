@@ -19,13 +19,6 @@
 		<script>
 			var index;
 			$(document).ready(function() {
-				index = new Index();
-				
-				$.getJSON("zestawy.json",(zestawy) => {
-					if (zestawy && zestawy != "undefined")
-						index.wczytajZestawy(zestawy); 
-				}).fail(function() {index.wczytajZestawy([]); })
-
 				if (localStorage.getItem("darkMode") == "true")
 					darkMode()
 			})
@@ -57,6 +50,17 @@
 				<button disabled="disabled">Graj!</button>
 				<a class="button" href="media/Odmiana niemiecki.png" target="_blank">Odmiana</a>
 			</div>
+
+			<h1>Hej!</h1>
+			<p>Właśnie otrzymałeś dostęp do kolejnego quizu!</p>
+			<p>Wybierz co chcesz z nim zrobić, albo najpierw go wypróbuj</p>
+			<div id="buttonsInRow">
+				<button disabled="disabled">Zapisz</button>
+				<button disabled="disabled">Dodaj do nauki</button>
+				<button disabled="disabled">Udostępnij</button>
+				<button disabled="disabled">Ignoruj</button>
+			</div>
+
 			<h2 id="listaPojecHeader">Lista Pojęć: 
 			<label>Sortuj
 				<select id="wyborSortowania" name="wyborSortowania" onchange="wyswietlZestaw(index.zestaw)"></select>
