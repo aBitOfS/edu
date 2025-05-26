@@ -20,13 +20,14 @@
 			function create() {
 				let set = {
 					"id":$("#nazwa").val(), // !!!
+					"wersja":1,
 					"nazwa":$("#nazwa").val(),
 					"kategoria":$("#kategoria").val(),
 					"poziom":$("#poziom").val(),
 					"jezyk":"Polski", // Language of set
 					"opis":$("#opis").val(),
 					"pola":[], // [[Field1,Type,...], [Field2,...], ...]
-					"pojecia":[], // [[Field1 value, Field2 value, ...]]
+					"pojecia":[], // [[Id, Knowledge, Field1 value, Field2 value, ...]]
 					"slownik":[$("#slownikBaza").val(),$("#slownikWyszukiwanie").val()], // [Main page, Search page with %s as query]
 					"quizy":[], // Built in quizes [[CodeName,[Data]]]
 					"materialy":[], // [[Name, url]]
@@ -38,6 +39,7 @@
 				for (let i = 0; i < a.length; i++)
 				{
 					set.pojecia.push({"ang":a[i].value,"pol":b[i].value/*,"pol":c[i].value*/})
+					// set.pojecia.push([i,0,a[i].value,b[i].value])
 				}
 				alert(JSON.stringify(set));
 			}

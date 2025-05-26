@@ -15,123 +15,8 @@
 		
 		<script src="script.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-		<script>
-			var pojecia, pojecie, nazwaZestawu, zestaw, strona, poczatkowa = true;
-
-			function czasNaTekst(czas) {
-				czas = Math.floor(czas/60000); // minuty
-				if (czas == 1)
-					return "minutę";
-				if (czas < 60)
-					return `${czas} ${czas < 5 ? "minuty" : "minut"}`;
-				else if (czas < 120)
-					return "godzinę";
-				else if (czas < 60*24) {
-					czas = Math.floor(czas/6)/10;
-					return `${czas} ${czas < 5 ? "godziny" : "godzin"}`;
-				}
-				else {
-					czas = Math.floor(czas/60/24);
-					return `${czas} ${czas == 1 ? "dzień" : "dni"}`;
-				}
-			}
-
-			function nastepna() {
-				pojecie = pojecia.shift();
-				strona = $(zaczOdDr).prop("checked");
-
-				if (pojecie.time && pojecie.time > Date.now()+60000) {
-					alert("Dobra robota! Ukończyłeś na teraz wróć za "+czasNaTekst(pojecie.time-60000));
-				}
-
-				$("#fiszka > span").text(pojecie[(strona ? "war1" : "war2")])
-				$("#fiszka").removeClass("drugaStrona");
-			}
-			function odloz(ileMinut) {
-				pojecie.time = Date.now() + 60000 * ileMinut;
-				console.log("powtórzę za "+czasNaTekst(60000 * ileMinut));
-				pojecia.push(pojecie)
-				nastepna();
-			}
-			function sortuj() {
-				console.log("sortuję");
-				let repetitionLimit = Date.now();
-				pojecia.sort(function(a,b) {
-					let at = a.time ?? repetitionLimit;
-					let bt = b.time ?? repetitionLimit;
-					if (at > bt) return 1;
-					else if (bt > at) return -1;
-					else return (Math.random() < 0.5 ? -1 : 1);
-				})
-				store();
-			}
-			function store() {
-				let toStore = pojecia.slice();
-				if (pojecie)
-					toStore.push(pojecie);
-				zestaw.pojecia = toStore;
-				toStore = JSON.stringify(zestaw);
-				localStorage.setItem(nazwaZestawu,toStore);
-			}
-			function start() {
-				zestaw = JSON.parse(zestaw);
-				pojecia = zestaw.pojecia.slice();
-
-				sortuj();
-				setInterval(sortuj,60*1000)
-				nastepna();
-
-				$("#tytul").text(zestaw.nazwa)
-
-				$("#odwroc").click(function() {
-					strona = !strona;
-					$("#fiszka > span").text(pojecie[(strona ? "war1" : "war2")])
-					$("#fiszka").toggleClass("drugaStrona");
-				})
-				
-				$("#znam").click(function() {
-					let dzien = 24*60
-					if (!pojecia.umiej) {
-						pojecia.umiej = 1;
-						odloz(60);
-					}
-					else {
-						pojecie.umiej++;
-						switch (pojecia.umiej) {
-							case 0: odloz(60); break;
-							case 1: odloz(dzien); break;
-							case 2: odloz(2*dzien); break;
-							case 3: odloz(5*dzien); break;
-							case 4: odloz(14*dzien); break;
-							case 5: odloz(30*dzien); break;
-							default: odloz(); break;
-						}
-					}
-				})
-				$("#prawie").click(function() { odloz(10); });
-				$("#powtorze").click(function() { odloz(5); });
-				$("#nieznam").click(function() { odloz(1); });
-			}
-
-			function dark_mode() {
-				$("body").toggleClass("dark")
-				localStorage.setItem("dark_mode",$("body").hasClass("dark"))
-			}
-			
-			$(document).ready(function() {
-				nazwaZestawu = localStorage.getItem("zestaw") ?? "niem";
-				zestaw = localStorage.getItem(nazwaZestawu);
-				if (zestaw && zestaw != 'undefined') {
-					start();
-				}
-				else
-					alert("BŁĄD: brak szukanego zestawu")
-				if (localStorage.getItem("darkMode") == "true")
-					darkMode()
-			})
-		</script>
 	</head>
-	<body>
+	<body onload="new QuizOperator()">
 		<header>
 			<b>
 				<a href="https://abitofs.github.io"><img src="https://raw.githubusercontent.com/aBitOfS/aBitOfS/main/abitofs.png" alt="abitofs" height="50px"/> HOME </a>
@@ -155,7 +40,7 @@
 				<button id="nieznam">W ogóle nie łapię</button>
 			</div>
 		</main>
-		<div>
+		<!--<div>
 			<a id="dictionaryOpen" onclick="$('#dictionary').removeClass('hidden')"href="https://www.diki.pl/slownik-angielskiego"
 					target="dictionary"><p>Sprawdź znaczenie<br/>w słowniku</p>
 				<img alt="logo słownika" width="110px" src="https://www.diki.pl/images/diki/diki_logo.svg"/>

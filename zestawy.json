@@ -1,5 +1,43 @@
 [
 	{
+		"id":"niem3k2", "nazwa":"Niemiecki - 3 Kapitel 2",
+		"pojecia":[
+			{"p":"ruch","n":"die Bewegung","a":"sich bewegen"},
+			{"p":"spacerować","n":"der Spaziergang","a":"spazieren gehen"},
+			{"p":"odżywianie","n":"die Erna:hrung","a":"sich erna:hren"},
+			{"p":"gotowanie","n":"das Kochen","a":"kochen"},
+			{"p":"sen","n":"der Schlaf","a":"schlafen"},
+			{"p":"rada","n":"der Rat","a":"raten"},
+			{"p":"myślenie","n":"das Denken","a":"denken"},
+			{"p":"zachorowanie","n":"die Erkrankung","a":"erkranken"},
+			{"p":"cierpienie","n":"das Leid","a":"leiden"},
+			{"p":"jedzenie","n":"das Essen","a":"essen"},
+			
+			{"p":"zróżnicowanie","n":"die Abwechslung","a":"abwechslungsreich"},
+			{"p":"stres","n":"der Stress","a":"stressig"},
+			{"p":"lenistwo","n":"die Faulheit","a":"faulig"},
+			{"p":"choroba","n":"die Krankheit","a":"krank"},
+			{"p":"szczęście","n":"das Glu:ck","a":"glu:cklich"},
+			{"p":"szczupły","n":"die Schlankheit","a":"schlank"},
+			{"p":"wegetarianizm","n":"der Vegetarismus","a":"vegetarisch"},
+			{"p":"zadowolenie","n":"die Zufriedenheit","a":"zufrieden"},
+			{"p":"sport","n":"der Sport","a":"sportlich"},
+			{"p":"zdrowie","n":"die Gesundheit","a":"gesund"},
+			
+			{"p":"dania gotowe","n":"die Fertiggerichte"},
+			{"p":"powietrze","n":"die Luft"},
+			{"p":"styl życia","n":"die Lebensstil"},
+			{"p":"zmienić","n":"a:ndern"},
+			{"p":"zrezygnować z","n":"verzichten auf"},
+			{"p":"unikać","n":"vermeiden"}
+		],
+		"list":["^n^","^a^","^p^"],"list^":["Niemiecki","Alt","Polski"],
+		"fiszki":["^n^","^a^","^p^"],"fiszki^":["Niemiecki","Polski"],
+		"sort":[["n","Niemiecki"],["p","Polski"]],
+		"pisanie":[["^p^","^n^"],["^p^","^a^"]],
+		"slownik":["https://www.diki.pl/slownik-niemieckiego","https://www.diki.pl/slownik-niemieckiego?q=%s"]
+	},
+	{
 		"id":"angPersonalityWords", "nazwa":"Angielski - Personality",
 		"pojecia":[
 			{"e":"resourceful","p":"pomysłowy"},

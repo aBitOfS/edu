@@ -196,3 +196,41 @@ function dalej(zestaw, szablon, poprzednie, ileMinut) {
 }
 
 // localStorage.setItem("zestawy",JSON.stringify(zestawy));
+
+class QuizOperator {
+	constructor() {
+		// Open set
+		var data = new URLSearchParams(window.location.search);
+		if (data.has("quiz")) {
+			this.quiz = JSON.parse(data.get("quiz"));
+		}
+		else if (data.has("name")) {
+			var quizName = data.get("name");
+			let local = localStorage.getItem(quizName);
+			console.log(quizName,local)
+			if (local)
+				this.quiz = JSON.parse(local)
+		}
+		if (!this.quiz && confirm("Wrócić?")) {
+			window.location.href = "/";
+		}
+		console.log(this.quiz)
+		$("#tytul").text(this.quiz.nazwa);
+		this.pojecia = this.quiz.pojecia
+	}
+	quiz;
+	pojecia;
+	pytanie;
+	next(previousScore) {
+
+	}
+}
+class Fiszki extends QuizOperator {
+	constructor() {
+		super();
+	}
+}
+
+function load() {
+	window.location.href = `file:///P://Strony%20internetowe/edu/zdanie.html?quiz=${JSON.stringify(index.zestaw)}`
+}
